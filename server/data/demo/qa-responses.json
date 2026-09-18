@@ -1,0 +1,136 @@
+{
+  "disclaimer": "FICTIONAL DEMONSTRATION DATA — NOT LEGAL ADVICE.",
+  "responses": [
+    {
+      "id": "qa-notice-period",
+      "questionPatterns": ["notice period", "how long notice", "resign notice", "notice when leaving", "notice if i quit", "notice to resign"],
+      "question": "What is the notice period?",
+      "answer": "The document states that after the probation period, either party must provide 90 days' written notice to terminate the agreement. During the 6-month probation period, the notice period is shorter at 14 days.",
+      "evidence": "Following the completion of the Probation Period, either party wishing to terminate this Agreement shall provide the other with ninety (90) days' written notice. The Company may, at its discretion, elect to make payment in lieu of notice (PILON), equivalent to the Employee's basic salary for the applicable notice period.",
+      "sourceSection": "Section 8.1",
+      "sourcePage": 6,
+      "confidence": "high",
+      "relatedClauses": ["clause-notice", "clause-probation"]
+    },
+    {
+      "id": "qa-resign",
+      "questionPatterns": ["what happens if i resign", "resign", "quit job", "leave the company", "want to leave", "leaving employment"],
+      "question": "What happens if I resign?",
+      "answer": "The document states that if you resign after the probation period, you must provide 90 days' written notice. During the notice period, you must continue working normally, hand over responsibilities, and return company property. The company may choose to pay you in lieu of requiring you to work the notice period. Additionally, if you resign within 24 months of completing company-funded training, you may owe training cost recovery of up to ₹2,00,000. Non-solicitation restrictions also apply for 18 months after your final day.",
+      "evidence": "Either party wishing to terminate this Agreement shall provide the other with ninety (90) days' written notice. During the notice period, the Employee shall continue to discharge their duties diligently; hand over all pending work; return all Company property.",
+      "sourceSection": "Section 8.1–8.3",
+      "sourcePage": 6,
+      "confidence": "high",
+      "relatedClauses": ["clause-notice", "clause-training-recovery", "clause-non-solicitation"]
+    },
+    {
+      "id": "qa-training-repayment",
+      "questionPatterns": ["training repayment", "training cost", "training recovery", "repay training", "training bond", "training clause"],
+      "question": "Is there a training repayment clause?",
+      "answer": "Yes. The document states that if the company funds training exceeding ₹50,000 and you resign within 12 months of completing that training, you must repay 100% of the cost. If you resign between 12 and 24 months after completing the training, you must repay 50%. The maximum you can owe is ₹2,00,000. The amount is deducted from your final settlement or must be paid within 30 days. Importantly, the document also states that this recovery does not apply if the company terminates your employment (other than for cause).",
+      "evidence": "If the Employee resigns within twelve (12) months of completing such training: 100% of the training cost to be recovered. If the Employee resigns between twelve (12) and twenty-four (24) months of completion: 50% of the training cost to be recovered. The aggregate training cost recovery obligation shall not exceed ₹2,00,000 (Rupees Two Lakhs) in any instance.",
+      "sourceSection": "Section 7A",
+      "sourcePage": 5,
+      "confidence": "high",
+      "relatedClauses": ["clause-training-recovery"]
+    },
+    {
+      "id": "qa-confidentiality",
+      "questionPatterns": ["how long confidentiality", "confidentiality period", "confidentiality last", "how long secret", "confidential information", "nda", "non-disclosure"],
+      "question": "How long does confidentiality last?",
+      "answer": "The document states that confidentiality obligations continue for 5 years after your employment ends. During this period, you must not disclose the company's confidential information, which includes technical data, software code, client lists, business plans, financial information, and product roadmaps. The obligation does not apply to information that becomes publicly available through no fault of your own, or information you are legally required to disclose.",
+      "evidence": "Post-employment: These confidentiality obligations shall survive termination and shall remain in force for a period of five (5) years following the date of termination.",
+      "sourceSection": "Section 13.4",
+      "sourcePage": 10,
+      "confidence": "high",
+      "relatedClauses": ["clause-confidentiality"]
+    },
+    {
+      "id": "qa-ip-ownership",
+      "questionPatterns": ["intellectual property", "who owns ip", "who owns my work", "ip ownership", "work i create", "copyright", "inventions", "side projects"],
+      "question": "Who owns intellectual property?",
+      "answer": "The document states that the company owns all intellectual property created by you in the course of your employment, using company resources, related to the company's business, or during working hours. This includes software, designs, inventions, and processes. You are required to assign these rights to the company. There is a narrow exception for work created entirely on your own time, without company resources, and unrelated to the company's business. The document also requires you to disclose any pre-existing IP you want to retain before you start employment.",
+      "evidence": "All inventions, discoveries, developments, software, designs, processes, and works created by the Employee in the course of their employment, using Company resources, equipment, or information, related to the Company's business or anticipated business, or during working hours shall be the sole and exclusive property of the Company.",
+      "sourceSection": "Section 14",
+      "sourcePage": 11,
+      "confidence": "high",
+      "relatedClauses": ["clause-ip"]
+    },
+    {
+      "id": "qa-obligations",
+      "questionPatterns": ["major obligations", "what are my obligations", "what must i do", "my responsibilities", "employee obligations", "duties"],
+      "question": "What are my major obligations?",
+      "answer": "The document specifies several key obligations for the employee:\n\n1. **Notice period**: Provide 90 days' written notice before resigning (after probation).\n2. **Training recovery**: Repay training costs (up to ₹2,00,000) if resigning within 24 months of completing company-funded training.\n3. **Confidentiality**: Maintain confidentiality for 5 years after employment ends.\n4. **IP assignment**: Assign all work-related intellectual property to the company.\n5. **Non-solicitation**: Do not approach company staff or clients for 18 months after leaving.\n6. **Return property**: Return all company equipment and documents upon termination.\n7. **Pre-existing IP disclosure**: Disclose any pre-existing IP you want to retain before starting.\n8. **Breach reporting**: Report any suspected confidentiality or data breach within 24 hours.",
+      "evidence": "Multiple clauses — Sections 7A, 8.1, 12, 13, 14, 15",
+      "sourceSection": "Multiple Sections",
+      "sourcePage": null,
+      "confidence": "high",
+      "relatedClauses": ["clause-notice", "clause-training-recovery", "clause-confidentiality", "clause-ip", "clause-non-solicitation"]
+    },
+    {
+      "id": "qa-clarify-before-signing",
+      "questionPatterns": ["what to clarify", "clarify before signing", "before i sign", "should i ask", "questions to ask", "what to check"],
+      "question": "What should I clarify before signing?",
+      "answer": "Based on the document's provisions, the following may be worth clarifying with the company or a legal professional before signing:\n\n1. **Notice period**: Whether the 90-day notice can be reduced by mutual agreement, and whether the company typically pays in lieu or expects it to be worked.\n2. **Training recovery**: Which specific programmes trigger the clause, and what the actual costs are likely to be.\n3. **Bonus**: What specific performance targets are used, and whether any portion is reliably paid.\n4. **Auto-renewal**: The exact implications of missing the 60-day non-renewal notice deadline.\n5. **IP and side projects**: Whether any existing personal projects should be disclosed before signing.\n6. **Confidentiality scope**: Whether the 5-year obligation would affect your anticipated future career path.\n7. **Non-solicitation**: Whether the 18-month restriction is standard for your seniority level.",
+      "evidence": "Provisions across Sections 5.2, 7A, 8.1, 9A, 12, 13, 14",
+      "sourceSection": "Multiple Sections",
+      "sourcePage": null,
+      "confidence": "medium",
+      "relatedClauses": ["clause-notice", "clause-training-recovery", "clause-bonus", "clause-auto-renewal", "clause-confidentiality", "clause-ip", "clause-non-solicitation"]
+    },
+    {
+      "id": "qa-salary",
+      "questionPatterns": ["salary", "how much pay", "compensation", "ctc", "monthly pay", "annual pay", "how much will i earn"],
+      "question": "What is the salary?",
+      "answer": "The document states the gross annual Cost to Company (CTC) is ₹24,00,000 (Rupees Twenty-Four Lakhs), paid in monthly instalments of ₹2,00,000, subject to applicable tax deductions. The employee may also be eligible for an annual performance bonus of up to 20% of basic salary, though this is at the Company's discretion.",
+      "evidence": "The Employee shall receive a gross annual Cost to Company (CTC) of ₹24,00,000 (Rupees Twenty-Four Lakhs), payable in equal monthly instalments of ₹2,00,000, subject to applicable tax deductions.",
+      "sourceSection": "Section 5.1",
+      "sourcePage": 3,
+      "confidence": "high",
+      "relatedClauses": ["clause-salary", "clause-bonus"]
+    },
+    {
+      "id": "qa-non-solicitation",
+      "questionPatterns": ["non-solicitation", "can i hire my colleagues", "can i take clients", "can i poach", "work for competitor", "recruit"],
+      "question": "What are the non-solicitation restrictions?",
+      "answer": "The document states that for 18 months after your employment ends, you cannot directly or indirectly try to hire away the company's employees, consultants, or contractors. You also cannot approach the company's clients for business if you had material contact with them in the 18 months before leaving. The document notes this restriction does not prevent you from placing general job advertisements not targeted at specific company personnel.",
+      "evidence": "During employment and for a period of eighteen (18) months following termination, the Employee shall not directly or indirectly solicit, induce, or attempt to solicit any employee, consultant, or contractor of the Company to leave their engagement.",
+      "sourceSection": "Section 12",
+      "sourcePage": 9,
+      "confidence": "high",
+      "relatedClauses": ["clause-non-solicitation"]
+    },
+    {
+      "id": "qa-probation",
+      "questionPatterns": ["probation", "probationary", "trial period", "probation period", "first months"],
+      "question": "What is the probation period?",
+      "answer": "The document states that employment begins with a 6-month probation period. During this time, either party can terminate the employment with just 14 days' written notice. The company can extend the probation by an additional 3 months with written notice before the original period expires. Upon successful completion, the company will issue written confirmation within 7 business days.",
+      "evidence": "The Employee's employment shall be subject to a probation period of six (6) months commencing from the Commencement Date. During the Probation Period, either party may terminate this Agreement by providing fourteen (14) days' written notice.",
+      "sourceSection": "Section 3",
+      "sourcePage": 2,
+      "confidence": "high",
+      "relatedClauses": ["clause-probation"]
+    },
+    {
+      "id": "qa-auto-renewal",
+      "questionPatterns": ["auto renewal", "automatic renewal", "renewal", "contract renew", "contract extension", "anniversary"],
+      "question": "Does the contract automatically renew?",
+      "answer": "Yes. The document contains an automatic renewal clause (Section 9A). The agreement renews automatically for successive one-year periods on each anniversary of the start date, unless either party provides written notice of non-renewal at least 60 days before the relevant anniversary. Missing this 60-day notice window means the contract is deemed to have renewed for another year.",
+      "evidence": "This Agreement shall automatically renew for successive one-year periods on each anniversary of the Commencement Date, unless either party provides written notice of non-renewal at least sixty (60) days prior to the relevant anniversary date.",
+      "sourceSection": "Section 9A",
+      "sourcePage": 7,
+      "confidence": "high",
+      "relatedClauses": ["clause-auto-renewal"]
+    }
+  ],
+  "outOfScopeResponse": {
+    "answer": "I can help you understand relevant provisions in your agreement and prepare questions for a legal professional, but that question falls outside the scope of document-based assistance ClauseLens provides.",
+    "suggestion": "If you have a question about your rights or obligations, I can help you find the relevant clauses in this document and prepare questions to discuss with a legal professional.",
+    "confidence": "low"
+  },
+  "notFoundResponse": {
+    "answer": "I couldn't find information about that in the provided document. The document does not appear to contain a specific provision addressing this.",
+    "suggestion": "This topic may not be covered in the agreement. You may want to raise it with the company or a legal professional.",
+    "confidence": "low"
+  }
+}

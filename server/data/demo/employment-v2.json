@@ -1,0 +1,615 @@
+{
+  "documentId": "employment-v2",
+  "title": "Employment Agreement — Version 2 (Revised)",
+  "version": "2.0",
+  "disclaimer": "FICTIONAL DEMONSTRATION DOCUMENT — NOT LEGAL ADVICE. This document is provided solely for demonstration purposes. All names, organisations, and values are fictitious.",
+  "metadata": {
+    "documentType": "Employment Agreement",
+    "effectiveDate": "2024-06-01",
+    "parties": {
+      "employer": "Nexus Technologies Private Limited",
+      "employee": "Alex Morgan"
+    },
+    "duration": "Permanent (subject to notice and termination provisions)",
+    "jurisdiction": "Mumbai, Maharashtra, India",
+    "governingLaw": "Laws of India",
+    "totalPages": 13,
+    "totalSections": 19,
+    "createdDate": "2024-05-10",
+    "revisedFrom": "employment-v1",
+    "revisionNote": "Revised terms issued by employer on 10 May 2024 — effective 1 June 2024."
+  },
+  "summary": {
+    "documentType": "Standard Full-Time Employment Agreement (Revised)",
+    "parties": ["Nexus Technologies Private Limited (Employer)", "Alex Morgan (Employee)"],
+    "effectiveDate": "1 June 2024",
+    "duration": "Permanent employment, subject to termination provisions",
+    "keyTopics": ["Salary & Benefits", "Working Hours", "Leave Entitlements", "Probation", "Notice Period", "Confidentiality", "Intellectual Property", "Non-Solicitation", "Training Recovery", "Automatic Renewal", "Dispute Resolution"]
+  },
+  "sections": [
+    {
+      "id": "1",
+      "sectionNumber": "1",
+      "title": "Definitions and Interpretation",
+      "page": 1,
+      "category": "general",
+      "text": "1. DEFINITIONS AND INTERPRETATION\n\n1.1 In this Agreement, unless the context otherwise requires:\n\n\"Agreement\" means this Employment Agreement including any schedules and amendments;\n\"Company\" means Nexus Technologies Private Limited, a company incorporated under the Companies Act 2013, having its registered office at 14th Floor, Pinnacle Tower, Bandra-Kurla Complex, Mumbai 400051;\n\"Employee\" means Alex Morgan, residing at the address on record with the Company;\n\"Commencement Date\" means 1 June 2024;\n\"Confidential Information\" has the meaning given in Clause 13;\n\"Intellectual Property Rights\" has the meaning given in Clause 14;\n\"Notice Period\" means the period specified in Clause 8.1;\n\"Restricted Period\" means the period specified in Clause 12.\n\n1.2 References to statutes include amendments or re-enactments.\n1.3 Headings are for convenience only and do not affect interpretation."
+    },
+    {
+      "id": "2",
+      "sectionNumber": "2",
+      "title": "Employment and Commencement",
+      "page": 1,
+      "category": "general",
+      "text": "2. EMPLOYMENT AND COMMENCEMENT\n\n2.1 The Company hereby appoints the Employee as Senior Software Engineer — Backend Systems, and the Employee hereby accepts such appointment, on the terms and conditions set out in this Agreement.\n\n2.2 The employment shall commence on 1 June 2024 (the \"Commencement Date\").\n\n2.3 The Employee's employment is subject to:\n(a) satisfactory completion of background and reference checks;\n(b) verification of academic and professional qualifications;\n(c) execution of this Agreement by both parties.\n\n2.4 The Employee confirms that they are not subject to any contractual obligations with a prior employer that would prevent or restrict the performance of duties under this Agreement.\n\n2.5 This Agreement supersedes any prior offer letter, heads of terms, or employment agreement between the parties."
+    },
+    {
+      "id": "3",
+      "sectionNumber": "3",
+      "title": "Probation Period",
+      "page": 2,
+      "category": "time",
+      "text": "3. PROBATION PERIOD\n\n3.1 The Employee's employment shall be subject to a probation period of six (6) months commencing from the Commencement Date (the \"Probation Period\").\n\n3.2 During the Probation Period, either party may terminate this Agreement by providing fourteen (14) days' written notice.\n\n3.3 The Company reserves the right to extend the Probation Period by a further three (3) months, subject to written notice to the Employee prior to the expiry of the initial Probation Period.\n\n3.4 Upon satisfactory completion of the Probation Period, the Company shall issue a written confirmation of regularisation within 7 business days."
+    },
+    {
+      "id": "4",
+      "sectionNumber": "4",
+      "title": "Duties and Responsibilities",
+      "page": 2,
+      "category": "general",
+      "text": "4. DUTIES AND RESPONSIBILITIES\n\n4.1 The Employee shall:\n(a) carry out the duties assigned by the Company diligently and to the best of their ability;\n(b) follow all lawful instructions, policies, and procedures of the Company;\n(c) devote their full working time and attention to the duties of the role;\n(d) act in the best interests of the Company at all times;\n(e) mentor junior team members as reasonably requested.\n\n4.2 The Company may from time to time reasonably change the Employee's duties, responsibilities, or reporting line.\n\n4.3 The Employee may be required to travel within India or internationally as reasonably required for the performance of their duties.\n\n4.4 The Employee may not undertake any outside employment, consultancy, or directorship without prior written consent of the Company."
+    },
+    {
+      "id": "5",
+      "sectionNumber": "5",
+      "title": "Remuneration and Benefits",
+      "page": 3,
+      "category": "financial",
+      "text": "5. REMUNERATION AND BENEFITS\n\n5.1 Basic Salary: The Employee shall receive a gross annual Cost to Company (CTC) of ₹24,00,000 (Rupees Twenty-Four Lakhs), payable in equal monthly instalments of ₹2,00,000, subject to applicable tax deductions.\n\n5.2 Performance Bonus: The Employee shall be eligible for an annual performance bonus of up to 20% of the basic annual salary, subject to the Employee meeting or exceeding performance targets as determined by the Company.\n\n5.3 Benefits: The Employee shall be entitled to:\n(a) Provident Fund contributions as per applicable law;\n(b) Employee State Insurance (ESI) where applicable;\n(c) Group medical insurance coverage of ₹7,50,000 per annum for the Employee and immediate family;\n(d) Annual mobile reimbursement of ₹18,000;\n(e) Annual professional development allowance of ₹25,000.\n\n5.4 Salary Review: The Company shall conduct an annual salary review. Salary increments are at the sole discretion of the Company and are not guaranteed.\n\n5.5 All remuneration is subject to deductions required by law."
+    },
+    {
+      "id": "6",
+      "sectionNumber": "6",
+      "title": "Working Hours",
+      "page": 4,
+      "category": "general",
+      "text": "6. WORKING HOURS\n\n6.1 Standard working hours are 9:00 AM to 6:00 PM, Monday to Friday (45 hours per week), with a one-hour unpaid lunch break.\n\n6.2 The Employee may be required to work beyond standard hours as reasonably necessary to fulfil their responsibilities, without additional compensation, as the position is classified as a professional/managerial role.\n\n6.3 The Company operates a hybrid working policy. The Employee is expected to be present at the Company's office in Mumbai for a minimum of four (4) days per week unless otherwise approved in writing.\n\n6.4 Remote working arrangements are subject to the Company's Remote Work Policy, which may be updated from time to time."
+    },
+    {
+      "id": "7",
+      "sectionNumber": "7",
+      "title": "Leave Entitlements",
+      "page": 4,
+      "category": "time",
+      "text": "7. LEAVE ENTITLEMENTS\n\n7.1 Annual Leave: The Employee shall be entitled to 21 days of paid annual leave per calendar year, accruing at 1.75 days per month.\n\n7.2 Sick Leave: The Employee shall be entitled to 10 days of paid sick leave per calendar year.\n\n7.3 Casual Leave: The Employee shall be entitled to 6 days of casual leave per calendar year.\n\n7.4 Public Holidays: The Employee is entitled to all public holidays as notified by the Company each calendar year.\n\n7.5 Leave encashment: Unused annual leave in excess of 6 days may be encashed at the end of the calendar year at the Employee's basic daily rate.\n\n7.6 Leave without pay may be granted at the sole discretion of the Company."
+    },
+    {
+      "id": "7.2",
+      "sectionNumber": "7A",
+      "title": "Training Cost Recovery",
+      "page": 5,
+      "category": "financial",
+      "text": "7A. TRAINING COST RECOVERY\n\n7A.1 The Company may, from time to time, invest in the Employee's professional development through external training programmes, certifications, or courses.\n\n7A.2 If the Company bears training costs exceeding ₹50,000 in any rolling twelve-month period, the Employee agrees to the following recovery schedule:\n(a) If the Employee resigns within twelve (12) months of completing such training: 100% of the training cost to be recovered;\n(b) If the Employee resigns between twelve (12) and twenty-four (24) months of completion: 50% of the training cost to be recovered;\n(c) After twenty-four (24) months: No recovery obligation.\n\n7A.3 The aggregate training cost recovery obligation shall not exceed ₹2,00,000 (Rupees Two Lakhs) in any instance.\n\n7A.4 Recovery shall be effected by deduction from final settlement amounts or by direct payment by the Employee within 30 days of the termination date.\n\n7A.5 The Company shall provide a written training cost statement to the Employee before any recovery is demanded.\n\n7A.6 Training cost recovery shall not apply where the Company terminates the Employee's employment other than for cause."
+    },
+    {
+      "id": "8.1",
+      "sectionNumber": "8.1",
+      "title": "Notice Period (Post-Probation)",
+      "page": 6,
+      "category": "termination",
+      "text": "8. TERMINATION AND NOTICE\n\n8.1 Notice Period: Following the completion of the Probation Period, either party wishing to terminate this Agreement shall provide the other with ninety (90) days' written notice.\n\n8.2 The Company may, at its discretion, elect to make payment in lieu of notice (PILON), equivalent to the Employee's basic salary for the applicable notice period.\n\n8.3 During the notice period, the Employee shall:\n(a) continue to discharge their duties diligently;\n(b) hand over all pending work and responsibilities to a designated successor;\n(c) return all Company property, including equipment, documents, and access credentials.\n\n8.4 The Employee may not commence alternative employment during the notice period unless the Company consents in writing."
+    },
+    {
+      "id": "9",
+      "sectionNumber": "9",
+      "title": "Termination for Cause",
+      "page": 7,
+      "category": "termination",
+      "text": "9. TERMINATION FOR CAUSE\n\n9.1 The Company may terminate this Agreement immediately without notice or payment in lieu of notice in the event of:\n(a) gross misconduct;\n(b) serious breach of any term of this Agreement;\n(c) conviction of a criminal offence;\n(d) fraudulent or dishonest conduct;\n(e) wilful damage to Company property;\n(f) serious breach of confidentiality obligations;\n(g) unauthorised disclosure of Confidential Information.\n\n9.2 Disciplinary proceedings shall be conducted in accordance with the Company's Disciplinary Policy.\n\n9.3 Termination for cause is without prejudice to any other rights the Company may have under law or contract."
+    },
+    {
+      "id": "9A",
+      "sectionNumber": "9A",
+      "title": "Automatic Contract Renewal",
+      "page": 7,
+      "category": "time",
+      "text": "9A. AUTOMATIC CONTRACT RENEWAL\n\n9A.1 This Agreement shall automatically renew for successive one-year periods on each anniversary of the Commencement Date, unless either party provides written notice of non-renewal at least sixty (60) days prior to the relevant anniversary date.\n\n9A.2 On renewal, the terms of this Agreement shall remain in force unless the parties agree in writing to revised terms.\n\n9A.3 Failure to provide timely notice of non-renewal shall be deemed acceptance of renewal for a further one-year period."
+    },
+    {
+      "id": "10",
+      "sectionNumber": "10",
+      "title": "Garden Leave",
+      "page": 8,
+      "category": "termination",
+      "text": "10. GARDEN LEAVE\n\n10.1 During any notice period, the Company may require the Employee to remain away from the workplace (\"Garden Leave\").\n\n10.2 During Garden Leave, the Employee shall:\n(a) remain bound by all terms of this Agreement;\n(b) not commence any alternative employment;\n(c) remain available to assist with handover matters;\n(d) not contact clients, customers, or suppliers of the Company except as directed."
+    },
+    {
+      "id": "11",
+      "sectionNumber": "11",
+      "title": "Return of Property",
+      "page": 8,
+      "category": "termination",
+      "text": "11. RETURN OF PROPERTY\n\n11.1 Upon termination of employment for any reason, the Employee shall promptly return to the Company:\n(a) all equipment, including laptops, mobile devices, and peripherals;\n(b) all access cards and security credentials;\n(c) all documents, records, and data in any format;\n(d) any other property belonging to the Company.\n\n11.2 The Employee must not retain copies of Confidential Information upon termination.\n\n11.3 Failure to return property may result in deductions from the Employee's final settlement or legal action."
+    },
+    {
+      "id": "12",
+      "sectionNumber": "12",
+      "title": "Non-Solicitation",
+      "page": 9,
+      "category": "restrictions",
+      "text": "12. NON-SOLICITATION\n\n12.1 During employment and for a period of eighteen (18) months following termination, the Employee shall not:\n(a) directly or indirectly solicit, induce, or attempt to solicit any employee, consultant, or contractor of the Company to leave their engagement;\n(b) solicit business from any client or customer of the Company with whom the Employee had material contact during the eighteen months prior to termination.\n\n12.2 This clause does not prevent the Employee from placing general advertisements for employment not targeted at specific Company personnel.\n\n12.3 The Employee acknowledges that these restrictions are reasonable in light of the senior nature of the role."
+    },
+    {
+      "id": "13",
+      "sectionNumber": "13",
+      "title": "Confidentiality",
+      "page": 10,
+      "category": "restrictions",
+      "text": "13. CONFIDENTIALITY\n\n13.1 The Employee acknowledges that in the course of employment, they will have access to Confidential Information.\n\n13.2 \"Confidential Information\" includes, without limitation:\n(a) technical data, software code, and system architecture;\n(b) client lists, pricing, and commercial strategies;\n(c) financial information and business plans;\n(d) personnel information;\n(e) product roadmaps, research, and development plans.\n\n13.3 The Employee shall:\n(a) keep all Confidential Information strictly confidential;\n(b) not disclose Confidential Information to any third party without written consent;\n(c) use Confidential Information solely for the purposes of performing their duties.\n\n13.4 Post-employment: These confidentiality obligations shall survive termination and shall remain in force for a period of five (5) years following the date of termination.\n\n13.5 The obligation does not apply to information that:\n(a) is or becomes publicly available through no fault of the Employee;\n(b) is required to be disclosed by law or court order.\n\n13.6 The Employee shall promptly notify the Company of any actual or suspected breach of confidentiality."
+    },
+    {
+      "id": "14",
+      "sectionNumber": "14",
+      "title": "Intellectual Property",
+      "page": 11,
+      "category": "ownership",
+      "text": "14. INTELLECTUAL PROPERTY\n\n14.1 All inventions, discoveries, developments, software, designs, processes, and works created by the Employee:\n(a) in the course of their employment;\n(b) using Company resources, equipment, or information;\n(c) related to the Company's business or anticipated business;\n(d) during working hours\nshall be the sole and exclusive property of the Company.\n\n14.2 The Employee hereby assigns to the Company all such Intellectual Property Rights, both present and future, and agrees to execute any documents necessary to give effect to such assignment.\n\n14.3 The Employee waives all moral rights in such works to the maximum extent permitted by law.\n\n14.4 This clause does not apply to inventions created entirely on the Employee's own time, without Company resources, and unrelated to the Company's business.\n\n14.5 Prior to commencement, the Employee shall disclose to the Company in writing any pre-existing IP that the Employee intends to exclude from the scope of this clause."
+    },
+    {
+      "id": "15",
+      "sectionNumber": "15",
+      "title": "Data Protection",
+      "page": 11,
+      "category": "restrictions",
+      "text": "15. DATA PROTECTION\n\n15.1 The Employee consents to the Company processing their personal data for employment purposes, including:\n(a) payroll and HR administration;\n(b) performance management;\n(c) statutory reporting obligations.\n\n15.2 The Employee shall comply with the Company's Data Protection Policy and all applicable data protection laws.\n\n15.3 The Employee shall not process personal data of clients or colleagues outside the scope of their duties or retain such data after termination.\n\n15.4 The Employee shall report any suspected personal data breach to the Company's Data Protection Officer within 24 hours of becoming aware of it."
+    },
+    {
+      "id": "16",
+      "sectionNumber": "16",
+      "title": "Dispute Resolution",
+      "page": 12,
+      "category": "disputes",
+      "text": "16. DISPUTE RESOLUTION\n\n16.1 In the event of any dispute arising from or in connection with this Agreement, the parties shall first attempt to resolve the matter through good-faith negotiation.\n\n16.2 If not resolved within 30 days, the parties shall submit the dispute to mediation under the rules of the Mumbai Centre for International Arbitration (MCIA).\n\n16.3 If mediation fails, the dispute shall be referred to binding arbitration:\n(a) Seat: Mumbai, India;\n(b) Language: English;\n(c) Rules: MCIA Arbitration Rules;\n(d) Arbitrators: Panel of three arbitrators, one nominated by each party and the third by the MCIA.\n\n16.4 Nothing in this clause prevents either party from seeking urgent injunctive relief.\n\n16.5 The costs of arbitration shall be borne equally by the parties unless the arbitral tribunal determines otherwise."
+    },
+    {
+      "id": "17",
+      "sectionNumber": "17",
+      "title": "Governing Law",
+      "page": 12,
+      "category": "disputes",
+      "text": "17. GOVERNING LAW\n\n17.1 This Agreement shall be governed by and construed in accordance with the laws of India.\n\n17.2 Subject to the dispute resolution provisions above, the parties submit to the non-exclusive jurisdiction of the courts located in Mumbai, Maharashtra."
+    },
+    {
+      "id": "18",
+      "sectionNumber": "18",
+      "title": "General Provisions",
+      "page": 13,
+      "category": "general",
+      "text": "18. GENERAL PROVISIONS\n\n18.1 Entire Agreement: This Agreement constitutes the entire agreement between the parties relating to the subject matter and supersedes all prior agreements.\n\n18.2 Variation: No variation shall be effective unless in writing and signed by both parties.\n\n18.3 Severability: If any provision is found unenforceable, the remaining provisions continue in full force.\n\n18.4 No Waiver: Failure to enforce any provision shall not constitute a waiver.\n\n18.5 Notices: Notices shall be in writing and delivered personally, by email (with acknowledgement), or by registered post to the last known address of the recipient.\n\n18.6 Counterparts: This Agreement may be executed in counterparts, each of which is an original."
+    }
+  ],
+  "clauses": [
+    {
+      "id": "clause-salary",
+      "sectionId": "5",
+      "category": "financial",
+      "title": "Annual Salary (CTC)",
+      "attentionLevel": "low",
+      "summary": "The employee will receive a gross annual Cost to Company (CTC) of ₹24,00,000, paid monthly at ₹2,00,000.",
+      "plainEnglish": "Your total annual compensation package is ₹24 Lakhs per year, paid as ₹2 Lakhs every month. This is before tax and other statutory deductions.",
+      "whyItMatters": "Your salary sets the financial basis of the employment relationship. Understanding the CTC structure (vs take-home pay) and applicable deductions is important.",
+      "whatToVerify": ["Confirm the exact take-home (in-hand) salary after deductions", "Clarify what components are included in CTC vs gross salary", "Check whether the bonus is guaranteed or purely discretionary"],
+      "sourceSection": "Section 5.1",
+      "sourcePage": 3,
+      "originalText": "The Employee shall receive a gross annual Cost to Company (CTC) of ₹24,00,000 (Rupees Twenty-Four Lakhs), payable in equal monthly instalments of ₹2,00,000, subject to applicable tax deductions.",
+      "keywords": ["salary", "compensation", "ctc", "pay", "remuneration", "money", "income"]
+    },
+    {
+      "id": "clause-bonus",
+      "sectionId": "5",
+      "category": "financial",
+      "title": "Performance Bonus",
+      "attentionLevel": "medium",
+      "summary": "Eligible for up to 20% annual performance bonus (increased from 15%), entirely at the Company's discretion.",
+      "plainEnglish": "You may receive a bonus of up to 20% of your basic annual salary if you meet or exceed performance targets. The Company decides whether and how much bonus is paid — it is not guaranteed.",
+      "whyItMatters": "The bonus is discretionary. The cap has increased from 15% to 20%, which is a positive change, but it remains non-guaranteed.",
+      "whatToVerify": ["What specific targets determine bonus eligibility?", "Is any portion of the bonus guaranteed?", "When in the year is the bonus paid?", "What happens to the bonus if you resign mid-year?"],
+      "sourceSection": "Section 5.2",
+      "sourcePage": 3,
+      "originalText": "The Employee shall be eligible for an annual performance bonus of up to 20% of the basic annual salary, subject to the Employee meeting or exceeding performance targets as determined by the Company.",
+      "keywords": ["bonus", "performance", "incentive", "variable pay", "discretionary"]
+    },
+    {
+      "id": "clause-probation",
+      "sectionId": "3",
+      "category": "time",
+      "title": "Probation Period",
+      "attentionLevel": "medium",
+      "summary": "6-month probation period, with either party able to terminate on 14 days' notice (increased from 7 days). Company may extend by 3 additional months.",
+      "plainEnglish": "For the first 6 months, employment can be ended by either side with two weeks' notice (this is longer than the previous version's 7 days). The company can still extend probation by another 3 months.",
+      "whyItMatters": "The notice period during probation has increased from 7 to 14 days, giving slightly more protection. The general structure remains unchanged.",
+      "whatToVerify": ["What criteria are used to assess probation performance?", "How is feedback provided during probation?", "Under what circumstances would probation be extended?"],
+      "sourceSection": "Section 3",
+      "sourcePage": 2,
+      "originalText": "During the Probation Period, either party may terminate this Agreement by providing fourteen (14) days' written notice.",
+      "keywords": ["probation", "probationary", "trial period", "confirm", "confirmation"]
+    },
+    {
+      "id": "clause-notice",
+      "sectionId": "8.1",
+      "category": "termination",
+      "title": "Notice Period (Post-Probation)",
+      "attentionLevel": "high",
+      "summary": "After probation, either party must provide 90 days' written notice — tripled from the previous 30-day requirement.",
+      "plainEnglish": "Once your probation ends, you must give the company at least 90 days' notice if you decide to leave — that is three calendar months. The company must also give you 90 days' notice (or pay you instead). This is significantly longer than the previous agreement.",
+      "whyItMatters": "A 90-day notice period is a major commitment. It means you cannot start a new job for three months after resigning. This is much more restrictive than the 30-day notice in version 1.",
+      "whatToVerify": ["Does the notice period apply equally to both sides?", "Can the notice period be waived by agreement?", "What are the consequences of not working the full notice period?", "Does the company typically pay in lieu or require the full notice to be worked?", "How does this compare to industry norms for your role?"],
+      "sourceSection": "Section 8.1",
+      "sourcePage": 6,
+      "originalText": "Following the completion of the Probation Period, either party wishing to terminate this Agreement shall provide the other with ninety (90) days' written notice.",
+      "keywords": ["notice period", "notice", "resign", "resignation", "leave", "terminate", "termination", "quit", "90 days"]
+    },
+    {
+      "id": "clause-training-recovery",
+      "sectionId": "7.2",
+      "category": "financial",
+      "title": "Training Cost Recovery",
+      "attentionLevel": "high",
+      "summary": "Training cost recovery cap doubled to ₹2,00,000. New provision: no recovery if company terminates you (other than for cause).",
+      "plainEnglish": "The maximum you could owe for training recovery has doubled from ₹1,00,000 to ₹2,00,000. However, a new protection has been added: if the company decides to let you go (except for cause), they cannot claim training recovery. The recovery schedule (100% within 12 months, 50% within 24 months) remains the same.",
+      "whyItMatters": "The doubled cap is a significant increase in potential financial exposure if you leave early after training. However, the new protection against company-initiated termination is a meaningful improvement.",
+      "whatToVerify": ["Which specific training programmes trigger this clause?", "Does the Company disclose the training cost before you agree to participate?", "What constitutes termination 'for cause' under Clause 9?", "How does the ₹2,00,000 cap compare to likely training costs in your role?"],
+      "sourceSection": "Section 7A.3",
+      "sourcePage": 5,
+      "originalText": "The aggregate training cost recovery obligation shall not exceed ₹2,00,000 (Rupees Two Lakhs) in any instance.",
+      "keywords": ["training", "training cost", "recovery", "repayment", "training bond", "course", "certification"]
+    },
+    {
+      "id": "clause-confidentiality",
+      "sectionId": "13",
+      "category": "restrictions",
+      "title": "Confidentiality Obligation",
+      "attentionLevel": "high",
+      "summary": "Confidentiality obligations extended to 5 years post-employment (up from 2 years). Scope widened to include product roadmaps.",
+      "plainEnglish": "You must keep company information secret for 5 years after your employment ends — significantly longer than the previous 2 years. The definition of confidential information now also includes product roadmaps and R&D plans. You must also report any suspected confidentiality breach to the company.",
+      "whyItMatters": "The confidentiality period has more than doubled. A 5-year post-employment restriction is substantially more limiting. The wider definition of confidential information and new reporting obligation should be carefully considered.",
+      "whatToVerify": ["Does this overlap with your anticipated future roles or industries?", "How is 'product roadmap' defined — does this cover anything you already know?", "What happens if you accidentally breach confidentiality?", "Is this period standard in your industry?"],
+      "sourceSection": "Section 13.4",
+      "sourcePage": 10,
+      "originalText": "Post-employment: These confidentiality obligations shall survive termination and shall remain in force for a period of five (5) years following the date of termination.",
+      "keywords": ["confidentiality", "confidential", "secret", "nda", "non-disclosure", "information", "disclose", "5 years"]
+    },
+    {
+      "id": "clause-ip",
+      "sectionId": "14",
+      "category": "ownership",
+      "title": "Intellectual Property Ownership",
+      "attentionLevel": "high",
+      "summary": "IP clause now explicitly includes work created 'during working hours'. New requirement to disclose pre-existing IP before starting.",
+      "plainEnglish": "The IP clause now explicitly covers anything you create during working hours, in addition to work using company resources. There is also a new requirement: before you start, you must disclose any existing IP projects you want to keep as your own. If you don't disclose them upfront, the company may later claim ownership.",
+      "whyItMatters": "The addition of 'during working hours' and the pre-commencement disclosure requirement make this clause broader and more actionable than the previous version. If you have side projects, you should disclose them before signing.",
+      "whatToVerify": ["Should you prepare a list of pre-existing IP before signing?", "What counts as 'working hours' if you work from home?", "Does this affect open-source contributions you make in your own time?"],
+      "sourceSection": "Section 14",
+      "sourcePage": 11,
+      "originalText": "Prior to commencement, the Employee shall disclose to the Company in writing any pre-existing IP that the Employee intends to exclude from the scope of this clause.",
+      "keywords": ["intellectual property", "ip", "copyright", "invention", "software", "code", "work product", "ownership"]
+    },
+    {
+      "id": "clause-non-solicitation",
+      "sectionId": "12",
+      "category": "restrictions",
+      "title": "Non-Solicitation",
+      "attentionLevel": "high",
+      "summary": "Non-solicitation period extended from 12 months to 18 months. Lookback period for client contact also extended to 18 months.",
+      "plainEnglish": "For 18 months after leaving (up from 12), you cannot try to hire away the company's staff or take their clients. The definition of 'relevant client contact' now looks back 18 months before your exit date (previously 12 months).",
+      "whyItMatters": "A 50% longer restriction period and a wider lookback for client contact makes this clause meaningfully more restrictive. This is significant if you plan to move to a competitor or start your own business.",
+      "whatToVerify": ["Does this apply even if the company terminates your employment?", "How is 'material contact' with clients defined?", "What consequences are stated for breach?", "Is 18 months standard in your industry for this seniority level?"],
+      "sourceSection": "Section 12",
+      "sourcePage": 9,
+      "originalText": "During employment and for a period of eighteen (18) months following termination, the Employee shall not directly or indirectly solicit, induce, or attempt to solicit any employee, consultant, or contractor of the Company to leave their engagement.",
+      "keywords": ["non-solicitation", "solicitation", "poach", "hire", "recruit", "clients", "customers", "employees"]
+    },
+    {
+      "id": "clause-auto-renewal",
+      "sectionId": "9A",
+      "category": "time",
+      "title": "Automatic Contract Renewal",
+      "attentionLevel": "high",
+      "summary": "NEW CLAUSE: Agreement auto-renews annually unless 60 days' written notice of non-renewal is given.",
+      "plainEnglish": "This is a new clause not in the previous agreement. The contract will automatically renew every year on your start date anniversary. If neither party gives 60 days' written notice before the anniversary, the contract renews automatically. Missing this deadline means you are committed for another full year.",
+      "whyItMatters": "This is an entirely new provision. The automatic renewal means you need to actively manage the contract anniversary date. Missing the 60-day notice window could inadvertently lock you in for another year.",
+      "whatToVerify": ["When exactly is the annual renewal date?", "Must notice of non-renewal be given in a specific form?", "Can the company use this to lock in terms you later want to renegotiate?", "What happens to salary reviews and bonuses during a renewed term?"],
+      "sourceSection": "Section 9A",
+      "sourcePage": 7,
+      "originalText": "This Agreement shall automatically renew for successive one-year periods on each anniversary of the Commencement Date, unless either party provides written notice of non-renewal at least sixty (60) days prior to the relevant anniversary date.",
+      "keywords": ["renewal", "automatic renewal", "auto-renew", "contract term", "anniversary", "extension"]
+    },
+    {
+      "id": "clause-dispute",
+      "sectionId": "16",
+      "category": "disputes",
+      "title": "Dispute Resolution (Arbitration)",
+      "attentionLevel": "medium",
+      "summary": "Arbitration panel changed from single arbitrator to three-arbitrator panel. Cost-sharing provision added.",
+      "plainEnglish": "If mediation fails, disputes now go to a three-person arbitration panel (previously one arbitrator). The cost of arbitration is split equally between both parties unless the arbitrators decide otherwise. The three-panel process may be more thorough but could also take longer and cost more.",
+      "whyItMatters": "A three-arbitrator panel is more formal and potentially more expensive than a single arbitrator. Knowing that costs are shared is useful — but in practice, arbitration costs can be substantial.",
+      "whatToVerify": ["Who bears upfront arbitration costs?", "Can you still go to court for urgent matters?", "Are there any employment law claims excluded from arbitration?"],
+      "sourceSection": "Section 16",
+      "sourcePage": 12,
+      "originalText": "If mediation fails, the dispute shall be referred to binding arbitration with a Panel of three arbitrators, one nominated by each party and the third by the MCIA.",
+      "keywords": ["dispute", "arbitration", "mediation", "legal action", "court", "jurisdiction", "conflict"]
+    },
+    {
+      "id": "clause-annual-leave",
+      "sectionId": "7",
+      "category": "time",
+      "title": "Annual Leave Entitlement",
+      "attentionLevel": "low",
+      "summary": "Annual leave increased to 21 days (up from 18), sick leave increased to 10 days (up from 8).",
+      "plainEnglish": "You now get 21 paid vacation days each year (up from 18) and 10 paid sick days (up from 8). Leave builds up at 1.75 days per month. The encashment policy remains the same.",
+      "whyItMatters": "These increases are positive improvements to leave entitlement.",
+      "whatToVerify": ["Must leave be approved in advance?", "What is the process for carrying forward unused leave?"],
+      "sourceSection": "Section 7",
+      "sourcePage": 4,
+      "originalText": "The Employee shall be entitled to 21 days of paid annual leave per calendar year, accruing at 1.75 days per month.",
+      "keywords": ["leave", "vacation", "annual leave", "time off", "holidays", "sick leave"]
+    },
+    {
+      "id": "clause-termination-cause",
+      "sectionId": "9",
+      "category": "termination",
+      "title": "Termination for Cause (Immediate)",
+      "attentionLevel": "medium",
+      "summary": "Grounds for immediate termination expanded to include 'unauthorised disclosure of Confidential Information' as a standalone ground.",
+      "plainEnglish": "The company can end your employment immediately in certain serious situations. The list of grounds has been expanded to explicitly include unauthorised disclosure of confidential information as a standalone ground for summary dismissal.",
+      "whyItMatters": "The explicit addition of confidentiality breach as a dismissal ground reinforces how seriously the company treats the confidentiality obligations in Section 13.",
+      "whatToVerify": ["How is 'gross misconduct' defined in the Company's disciplinary policy?", "What process must the company follow before dismissing for cause?", "What appeals mechanisms are available?"],
+      "sourceSection": "Section 9",
+      "sourcePage": 7,
+      "originalText": "The Company may terminate this Agreement immediately without notice in the event of: gross misconduct; serious breach; conviction; fraud; wilful damage; serious breach of confidentiality; unauthorised disclosure of Confidential Information.",
+      "keywords": ["termination", "dismissal", "fired", "cause", "misconduct", "summary dismissal", "immediate termination"]
+    }
+  ],
+  "obligations": [
+    {
+      "id": "ob-1",
+      "who": "Employee",
+      "action": "Complete probation period satisfactorily",
+      "trigger": "Commencement of employment",
+      "deadline": "6 months from start date (by 1 December 2024)",
+      "consequence": "Employment subject to review; possible extension by 3 months or termination on 14 days' notice",
+      "sourceSection": "Section 3",
+      "sourcePage": 2
+    },
+    {
+      "id": "ob-2",
+      "who": "Employee",
+      "action": "Provide written resignation notice",
+      "trigger": "Decision to resign (after probation)",
+      "deadline": "Minimum 90 days before intended last working day",
+      "consequence": "Company may seek damages for failure to give adequate notice",
+      "sourceSection": "Section 8.1",
+      "sourcePage": 6
+    },
+    {
+      "id": "ob-2a",
+      "who": "Employee",
+      "action": "Provide or monitor notice of non-renewal",
+      "trigger": "Approaching annual contract anniversary",
+      "deadline": "60 days before each anniversary of 1 June",
+      "consequence": "Agreement auto-renews for a further year if notice is not given in time",
+      "sourceSection": "Section 9A",
+      "sourcePage": 7
+    },
+    {
+      "id": "ob-3",
+      "who": "Employee",
+      "action": "Repay training costs if resigning within 24 months of training completion",
+      "trigger": "Resignation within 24 months of completing company-funded training",
+      "deadline": "Deducted from final settlement or paid within 30 days of termination",
+      "consequence": "Up to ₹2,00,000 deducted from final settlement or payable directly",
+      "sourceSection": "Section 7A",
+      "sourcePage": 5
+    },
+    {
+      "id": "ob-4",
+      "who": "Employee",
+      "action": "Maintain confidentiality of company information",
+      "trigger": "During employment and upon termination",
+      "deadline": "Ongoing — for 5 years post-termination",
+      "consequence": "Potential legal action for breach of confidentiality",
+      "sourceSection": "Section 13",
+      "sourcePage": 10
+    },
+    {
+      "id": "ob-4a",
+      "who": "Employee",
+      "action": "Report suspected data or confidentiality breach",
+      "trigger": "Upon becoming aware of any actual or suspected breach",
+      "deadline": "Within 24 hours of becoming aware",
+      "consequence": "Failure to report may itself constitute a breach of this Agreement",
+      "sourceSection": "Section 13.6 and 15.4",
+      "sourcePage": 10
+    },
+    {
+      "id": "ob-4b",
+      "who": "Employee",
+      "action": "Disclose pre-existing IP before commencement",
+      "trigger": "Prior to commencement of employment",
+      "deadline": "Before signing / before start date",
+      "consequence": "Failure to disclose may result in the Company claiming ownership of undisclosed pre-existing IP",
+      "sourceSection": "Section 14.5",
+      "sourcePage": 11
+    },
+    {
+      "id": "ob-5",
+      "who": "Employee",
+      "action": "Return all company property",
+      "trigger": "Termination of employment for any reason",
+      "deadline": "Promptly upon termination",
+      "consequence": "Deductions from final settlement or legal action for unreturned property",
+      "sourceSection": "Section 11",
+      "sourcePage": 8
+    },
+    {
+      "id": "ob-6",
+      "who": "Employee",
+      "action": "Observe non-solicitation restrictions",
+      "trigger": "Termination of employment",
+      "deadline": "For 18 months following termination",
+      "consequence": "Potential legal action and injunctive relief",
+      "sourceSection": "Section 12",
+      "sourcePage": 9
+    },
+    {
+      "id": "ob-7",
+      "who": "Employee",
+      "action": "Assign all work-related IP to the Company",
+      "trigger": "Upon creation of any qualifying intellectual property",
+      "deadline": "Immediately upon creation; execute assignment documents on request",
+      "consequence": "Company retains rights regardless; Employee may be required to sign additional documents",
+      "sourceSection": "Section 14",
+      "sourcePage": 11
+    },
+    {
+      "id": "ob-8",
+      "who": "Company",
+      "action": "Provide 90 days' notice before termination (post-probation)",
+      "trigger": "Decision to terminate Employee's employment",
+      "deadline": "90 days' written notice (or payment in lieu)",
+      "consequence": "Employee entitled to payment in lieu if notice not given",
+      "sourceSection": "Section 8.1–8.2",
+      "sourcePage": 6
+    }
+  ],
+  "timeline": [
+    {
+      "id": "tl-1",
+      "date": "2024-06-01",
+      "label": "Employment Commences",
+      "description": "Alex Morgan begins employment as Senior Software Engineer — Backend Systems.",
+      "type": "milestone",
+      "sourceSection": "Section 2.2"
+    },
+    {
+      "id": "tl-2",
+      "date": "2024-12-01",
+      "label": "Probation Period Ends",
+      "description": "6-month probation period expires. Full 90-day notice period protections apply from this date.",
+      "type": "milestone",
+      "sourceSection": "Section 3.1"
+    },
+    {
+      "id": "tl-3",
+      "date": "2024-12-01",
+      "label": "Notice Period Increases to 90 Days",
+      "description": "Post-probation: minimum 90 days' notice required from either party to terminate.",
+      "type": "obligation",
+      "sourceSection": "Section 8.1"
+    },
+    {
+      "id": "tl-3a",
+      "date": "2025-04-02",
+      "label": "First Auto-Renewal Notice Deadline",
+      "description": "If no party gives written notice of non-renewal by 2 April 2025, the contract auto-renews on 1 June 2025 for another year.",
+      "type": "deadline",
+      "sourceSection": "Section 9A"
+    },
+    {
+      "id": "tl-4",
+      "date": "2025-06-01",
+      "label": "First Contract Anniversary / Potential Auto-Renewal",
+      "description": "Contract auto-renews unless 60 days' prior written notice of non-renewal was given.",
+      "type": "milestone",
+      "sourceSection": "Section 9A"
+    },
+    {
+      "id": "tl-5",
+      "date": "2025-06-01",
+      "label": "12-Month Training Recovery Window (If Applicable)",
+      "description": "If training was completed at commencement, the 12-month 100% recovery window closes.",
+      "type": "financial",
+      "sourceSection": "Section 7A.2"
+    },
+    {
+      "id": "tl-6",
+      "date": "2026-06-01",
+      "label": "24-Month Training Recovery Window Closes",
+      "description": "After 24 months from training completion, no training cost recovery is owed.",
+      "type": "financial",
+      "sourceSection": "Section 7A.2"
+    },
+    {
+      "id": "tl-7",
+      "date": "ongoing",
+      "label": "Non-Solicitation Applies for 18 Months After Leaving",
+      "description": "Runs for 18 months from whatever date employment is terminated.",
+      "type": "restriction",
+      "sourceSection": "Section 12"
+    },
+    {
+      "id": "tl-8",
+      "date": "ongoing",
+      "label": "Confidentiality Obligation (5 Years Post-Exit)",
+      "description": "Confidentiality obligations continue for 5 years after the employment ends.",
+      "type": "restriction",
+      "sourceSection": "Section 13.4"
+    }
+  ],
+  "attentionAreas": [
+    {
+      "id": "att-1",
+      "clauseId": "clause-notice",
+      "level": "high",
+      "title": "Notice Period Tripled to 90 Days",
+      "summary": "The notice period has increased from 30 days to 90 days — a significant change requiring 3 months' advance notice to resign.",
+      "sourceSection": "Section 8.1",
+      "sourcePage": 6
+    },
+    {
+      "id": "att-2",
+      "clauseId": "clause-confidentiality",
+      "level": "high",
+      "title": "Post-Employment Confidentiality Extended to 5 Years",
+      "summary": "Confidentiality obligations survive termination for 5 years (previously 2 years).",
+      "sourceSection": "Section 13.4",
+      "sourcePage": 10
+    },
+    {
+      "id": "att-3",
+      "clauseId": "clause-auto-renewal",
+      "level": "high",
+      "title": "New: Automatic Annual Contract Renewal",
+      "summary": "Contract auto-renews every year unless 60 days' notice of non-renewal is given. This clause was not in version 1.",
+      "sourceSection": "Section 9A",
+      "sourcePage": 7
+    },
+    {
+      "id": "att-4",
+      "clauseId": "clause-non-solicitation",
+      "level": "high",
+      "title": "Non-Solicitation Extended to 18 Months",
+      "summary": "Cannot approach company employees or clients for 18 months after leaving (previously 12 months).",
+      "sourceSection": "Section 12",
+      "sourcePage": 9
+    },
+    {
+      "id": "att-5",
+      "clauseId": "clause-training-recovery",
+      "level": "high",
+      "title": "Training Recovery Cap Doubled to ₹2,00,000",
+      "summary": "Maximum training cost recovery doubled. New protection: no recovery if company terminates you without cause.",
+      "sourceSection": "Section 7A.3",
+      "sourcePage": 5
+    },
+    {
+      "id": "att-6",
+      "clauseId": "clause-ip",
+      "level": "medium",
+      "title": "IP Clause Now Requires Pre-Commencement Disclosure",
+      "summary": "New requirement to disclose pre-existing IP before starting. Failure to disclose may cost you ownership.",
+      "sourceSection": "Section 14.5",
+      "sourcePage": 11
+    }
+  ]
+}
