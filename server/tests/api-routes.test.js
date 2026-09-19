@@ -8,7 +8,7 @@ const app = require('../app');
 const SAMPLE_PATH  = path.join(__dirname, '../data/demo/ClauseLens_Sample_Employment_Agreement.txt');
 const SAMPLE_EXISTS = fs.existsSync(SAMPLE_PATH);
 
-// ── Auth helper ───────────────────────────────────────────────────────────────
+//  Auth helper 
 let authToken = '';
 
 // Register a test user before all tests and store the JWT
@@ -21,20 +21,16 @@ beforeAll(async () => {
 
 function auth(req) { return req.set('Authorization', `Bearer ${authToken}`) }
 
-// ─────────────────────────────────────────────────────────────────────────────
 describe('API Routes', () => {
-
-  // ── Health (public) ───────────────────────────────────────────────────────
   describe('GET /api/health', () => {
     test('returns 200 with status ok', async () => {
       const res = await request(app).get('/api/health');
       expect(res.status).toBe(200);
       expect(res.body.status).toBe('ok');
-      expect(res.body.mode).toBe('demo');
+      expect(res.body.version).toBe('1.0.0');
     });
   });
-
-  // ── Auth routes ───────────────────────────────────────────────────────────
+  
   describe('POST /api/auth/register', () => {
     test('creates a new account', async () => {
       const res = await request(app)
@@ -88,7 +84,7 @@ describe('API Routes', () => {
     });
   });
 
-  // ── Protected routes require auth ─────────────────────────────────────────
+  // Protected routes require auth
   describe('Auth protection', () => {
     test('GET /api/documents returns 401 without token', async () => {
       const res = await request(app).get('/api/documents');
@@ -102,7 +98,7 @@ describe('API Routes', () => {
     });
   });
 
-  // ── Documents (authenticated) ─────────────────────────────────────────────
+  // Documents (authenticated)
   describe('GET /api/documents', () => {
     test('returns list of demo documents', async () => {
       const res = await auth(request(app).get('/api/documents'));
@@ -140,7 +136,7 @@ describe('API Routes', () => {
     });
   });
 
-  // ── Analysis ──────────────────────────────────────────────────────────────
+  // Analysis
   describe('POST /api/analysis/analyze', () => {
     test('analyzes employment-v2', async () => {
       const res = await auth(request(app).post('/api/analysis/analyze'))
@@ -173,7 +169,7 @@ describe('API Routes', () => {
     });
   });
 
-  // ── Upload + Analyse pipeline ─────────────────────────────────────────────
+  // Upload + Analyse pipeline
   describe('Upload pipeline', () => {
     let uploadedDocId = null;
 

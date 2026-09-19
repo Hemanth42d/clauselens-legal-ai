@@ -1,27 +1,16 @@
-/**
- * authenticate — Express middleware that enforces JWT authentication.
- *
- * Reads the token from:
- *   1. Authorization: Bearer <token>  header
- *   2. x-auth-token header (fallback)
- *
- * On success: attaches req.user = { id, name, email }
- * On failure: returns 401 JSON
- */
-
 const AuthService = require('../services/auth/AuthService');
 
+/**
+ * Enforces JWT authentication on protected routes.
+ * Reads from Authorization: Bearer <token> or x-auth-token header.
+ * Attaches req.user = { id, name, email } on success.
+ */
 module.exports = function authenticate(req, res, next) {
   try {
-    const authHeader = req.headers['authorization'] || '';
-    const xToken     = req.headers['x-auth-token']  || '';
-
-    let token = '';
-    if (authHeader.startsWith('Bearer ')) {
-      token = authHeader.slice(7).trim();
-    } else if (xToken) {
-      token = xToken.trim();
-    }
+    const bearer = (req.headers['authorization'] || '').startsWith('Bearer ')
+      ? req.headers['authorization'].slice(7).trim()
+      : '';
+    const token = bearer || (req.headers['x-auth-token'] || '').trim();
 
     if (!token) {
       return res.status(401).json({ error: 'Authentication required. Please sign in.' });

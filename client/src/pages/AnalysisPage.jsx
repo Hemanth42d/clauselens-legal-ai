@@ -461,7 +461,7 @@ export default function AnalysisPage() {
   }
 
   return (
-    <div className="flex flex-col bg-white" style={{ height: '100vh', height: '100dvh' }}>
+    <div className="flex flex-col bg-white" style={{ height: '100dvh' }}>
 
       {/* ── Top bar ────────────────────────────────────────────────────── */}
       <header className="flex items-center gap-2 px-3 sm:px-4 h-14 border-b border-gray-200 bg-white flex-shrink-0 z-20">

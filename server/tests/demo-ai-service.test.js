@@ -1,7 +1,3 @@
-/**
- * Unit tests for DemoAIService.
- * These run against the actual bundled demo JSON data.
- */
 // Ensure demo mode
 delete process.env.OPENAI_API_KEY;
 
@@ -16,7 +12,7 @@ describe('DemoAIService', () => {
     service = new DemoAIService();
   });
 
-  // ── listDocuments ─────────────────────────────────────────────────────────
+  // listDocuments
   describe('listDocuments()', () => {
     test('returns at least both demo documents', () => {
       const docs = service.listDocuments();
@@ -42,7 +38,6 @@ describe('DemoAIService', () => {
     });
   });
 
-  // ── getDocument ───────────────────────────────────────────────────────────
   describe('getDocument()', () => {
     test('returns employment-v1', () => {
       const doc = service.getDocument('employment-v1');
@@ -54,7 +49,6 @@ describe('DemoAIService', () => {
     });
   });
 
-  // ── registerDocument ──────────────────────────────────────────────────────
   describe('registerDocument()', () => {
     test('registers a custom document accessible via getDocument', () => {
       const fake = {
@@ -76,7 +70,6 @@ describe('DemoAIService', () => {
     });
   });
 
-  // ── analyzeDocument ───────────────────────────────────────────────────────
   describe('analyzeDocument()', () => {
     test('returns analysis for employment-v1', async () => {
       const result = await service.analyzeDocument('employment-v1');
@@ -128,7 +121,6 @@ describe('DemoAIService', () => {
     });
   });
 
-  // ── extractClauses ────────────────────────────────────────────────────────
   describe('extractClauses()', () => {
     test('returns clauses for employment-v1', async () => {
       const result = await service.extractClauses('employment-v1');
@@ -167,7 +159,6 @@ describe('DemoAIService', () => {
     });
   });
 
-  // ── extractObligations ────────────────────────────────────────────────────
   describe('extractObligations()', () => {
     test('returns obligations for employment-v2', async () => {
       const result = await service.extractObligations('employment-v2');
@@ -198,7 +189,6 @@ describe('DemoAIService', () => {
     });
   });
 
-  // ── answerQuestion ────────────────────────────────────────────────────────
   describe('answerQuestion()', () => {
     test('answers notice period question for demo doc', async () => {
       const result = await service.answerQuestion('What is the notice period?', 'employment-v2', []);
@@ -264,7 +254,6 @@ describe('DemoAIService', () => {
     });
   });
 
-  // ── compareDocuments ──────────────────────────────────────────────────────
   describe('compareDocuments()', () => {
     test('compares v1 and v2 successfully', async () => {
       const result = await service.compareDocuments('employment-v1', 'employment-v2');
@@ -315,7 +304,6 @@ describe('DemoAIService', () => {
     });
   });
 
-  // ── Source mapping ────────────────────────────────────────────────────────
   describe('source mapping', () => {
     test('clauses reference section IDs that exist in the document', async () => {
       const { clauses } = await service.extractClauses('employment-v1');
@@ -336,7 +324,6 @@ describe('DemoAIService', () => {
     });
   });
 
-  // ── generateConsultationBrief ─────────────────────────────────────────────
   describe('generateConsultationBrief()', () => {
     test('generates a brief for employment-v2', async () => {
       const result = await service.generateConsultationBrief('employment-v2');
@@ -366,7 +353,6 @@ describe('DemoAIService', () => {
     });
   });
 
-  // ── extractTimeline ───────────────────────────────────────────────────────
   describe('extractTimeline()', () => {
     test('returns timeline for employment-v2', async () => {
       const result = await service.extractTimeline('employment-v2');
@@ -375,7 +361,6 @@ describe('DemoAIService', () => {
     });
   });
 
-  // ── Demo mode marker ──────────────────────────────────────────────────────
   describe('demo mode markers', () => {
     test('analyzeDocument returns mode: demo', async () => {
       expect((await service.analyzeDocument('employment-v1')).mode).toBe('demo');

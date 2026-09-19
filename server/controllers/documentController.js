@@ -61,23 +61,24 @@ exports.uploadDocument = async (req, res, next) => {
 
     res.json({ documentId: document.documentId, title: document.title, isUploaded: true });
   } catch (err) {
-    // Forward structured errors (e.g. 413, 415, 422) without wrapping.
     next(err);
   }
 };
 
 exports.downloadSample = (_req, res, next) => {
   try {
-    const samplePath = path.join(__dirname, '..', 'data', 'demo',
-      'ClauseLens_Sample_Employment_Agreement.txt');
+    const samplePath = path.resolve(
+      __dirname, '..', 'data', 'demo',
+      'ClauseLens_Sample_Employment_Agreement.txt'
+    );
 
     if (!fs.existsSync(samplePath)) {
       return res.status(404).json({ error: 'Sample document not found.' });
     }
 
-    res.setHeader('Content-Disposition', 'attachment; filename="ClauseLens_Sample_Employment_Agreement.txt"');
-    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    res.sendFile(samplePath);
+    res.download(samplePath, 'ClauseLens_Sample_Employment_Agreement.txt', (err) => {
+      if (err && !res.headersSent) next(err);
+    });
   } catch (err) { next(err); }
 };
 

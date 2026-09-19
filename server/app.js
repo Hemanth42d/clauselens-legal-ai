@@ -12,8 +12,9 @@ const qaRoutes           = require('./routes/qa');
 const comparisonRoutes   = require('./routes/comparison');
 const consultationRoutes = require('./routes/consultation');
 const authenticate       = require('./middleware/auth');
+const documentController = require('./controllers/documentController');
 
-const app  = express();
+const app    = express();
 const isProd = process.env.NODE_ENV === 'production';
 
 app.use(helmet({ crossOriginEmbedderPolicy: false, contentSecurityPolicy: false }));
@@ -35,17 +36,14 @@ app.use(cors({
 }));
 
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-  standardHeaders: true,
-  legacyHeaders: false,
+  windowMs: 15 * 60 * 1000, max: 100,
+  standardHeaders: true, legacyHeaders: false,
   message: { error: 'Too many requests, please try again later.' },
 });
 app.use('/api/', limiter);
 
 const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 20,
+  windowMs: 15 * 60 * 1000, max: 20,
   message: { error: 'Too many attempts, please try again later.' },
 });
 app.use('/api/auth/login',    authLimiter);
@@ -54,12 +52,17 @@ app.use('/api/auth/register', authLimiter);
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Public health check — does not expose sensitive config values.
+// ── Public routes (no auth required) ─────────────────────────────────────────
 app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok', version: '1.0.0', timestamp: new Date().toISOString() });
 });
 
-app.use('/api/auth',         authRoutes);
+// Sample download is public — browser <a href> can't send auth headers
+app.get('/api/documents/sample', documentController.downloadSample);
+
+app.use('/api/auth', authRoutes);
+
+// ── Protected routes ──────────────────────────────────────────────────────────
 app.use('/api/documents',    authenticate, documentRoutes);
 app.use('/api/analysis',     authenticate, analysisRoutes);
 app.use('/api/qa',           authenticate, qaRoutes);
@@ -74,7 +77,6 @@ if (isProd) {
 
 app.use((_req, res) => res.status(404).json({ error: 'Route not found' }));
 
-// Global error handler — stack trace only logged in development.
 app.use((err, _req, res, _next) => {
   if (!isProd) console.error(err.stack);
   res.status(err.status || 500).json({

@@ -95,10 +95,10 @@ export default function DashboardPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
           {[
-            { Icon: FileText,      value: docs.length || '2', label: 'Documents',      iconCls: 'text-blue-500',   bg: 'bg-blue-50'   },
-            { Icon: AlertTriangle, value: '5+',               label: 'High attention', iconCls: 'text-red-400',    bg: 'bg-red-50'    },
-            { Icon: CheckSquare,   value: '11+',              label: 'Obligations',    iconCls: 'text-green-500',  bg: 'bg-green-50'  },
-            { Icon: Clock,         value: '< 30s',            label: 'Analysis time',  iconCls: 'text-orange-500', bg: 'bg-orange-50' },
+            { Icon: FileText,      value: loading ? '…' : docs.length, label: 'Documents',      iconCls: 'text-blue-500',   bg: 'bg-blue-50'   },
+            { Icon: AlertTriangle, value: loading ? '…' : docs.reduce((s, d) => s + (d.attentionCounts?.high || 0), 0) || '—', label: 'High attention', iconCls: 'text-red-400',    bg: 'bg-red-50'    },
+            { Icon: CheckSquare,   value: loading ? '…' : docs.reduce((s, d) => s + (d.obligationCount || 0), 0) || '—',    label: 'Obligations',    iconCls: 'text-green-500',  bg: 'bg-green-50'  },
+            { Icon: Clock,         value: '< 30s',                                                                             label: 'Analysis time',  iconCls: 'text-orange-500', bg: 'bg-orange-50' },
           ].map(({ Icon, value, label, iconCls, bg }) => (
             <div key={label} className="bg-white border border-gray-200 rounded-xl p-4">
               <div className={`w-8 h-8 rounded-lg ${bg} flex items-center justify-center mb-3`}>

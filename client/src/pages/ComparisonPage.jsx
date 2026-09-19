@@ -9,7 +9,6 @@ import AttentionBadge from '../components/ui/AttentionBadge'
 import ProgressLoader from '../components/ui/ProgressLoader'
 import ErrorState from '../components/ui/ErrorState'
 
-/* ────────────────────────────────────────────────────────────────────────── */
 
 const MAX_MB    = 10
 const MAX_BYTES = MAX_MB * 1024 * 1024
@@ -30,7 +29,6 @@ function fmtBytes(b) {
   return `${(b / 1048576).toFixed(1)} MB`
 }
 
-/* ── Upload drop zone ───────────────────────────────────────────────────── */
 function DropZone({ side, file, docId, uploading, error, onFile, onClear }) {
   const inputRef = useRef(null)
   const [drag, setDrag] = useState(false)
@@ -108,7 +106,6 @@ function DropZone({ side, file, docId, uploading, error, onFile, onClear }) {
   )
 }
 
-/* ── Change type badge ──────────────────────────────────────────────────── */
 const CHANGE_TYPE = {
   added:    { label: 'Added',    cls: 'badge-added',    Icon: Plus  },
   modified: { label: 'Modified', cls: 'badge-modified', Icon: Edit3 },
@@ -120,14 +117,12 @@ function ChangeTypeBadge({ type }) {
   return <span className={cls} aria-label={type}><Icon className="w-3 h-3" />{label}</span>
 }
 
-/* ── Attention level to colors ─────────────────────────────────────────── */
 const ATTENTION_COLORS = {
   high:   { bg: 'bg-red-50',    border: 'border-red-200',    bar: 'bg-red-400'    },
   medium: { bg: 'bg-yellow-50', border: 'border-yellow-200', bar: 'bg-yellow-400' },
   low:    { bg: 'bg-gray-50',   border: 'border-gray-200',   bar: 'bg-gray-300'   },
 }
 
-/* ── Professional change card ──────────────────────────────────────────── */
 function ChangeCard({ change, index }) {
   const [open, setOpen] = useState(false)
   const isAdded   = change.changeType === 'added'
@@ -149,10 +144,8 @@ function ChangeCard({ change, index }) {
           <AttentionBadge level={change.attentionLevel} />
         </div>
 
-        {/* Row 2 — title */}
         <h3 className="text-base font-semibold text-gray-900 mb-3">{change.clauseTitle}</h3>
 
-        {/* Row 3 — value diff (always visible) */}
         {!isAdded && !isRemoved && change.valueBefore && change.valueAfter && (
           <div className="flex items-center gap-3 mb-4 flex-wrap">
             <div className="flex-1 min-w-0 bg-red-50 border border-red-100 rounded-lg px-3 py-2">
@@ -190,11 +183,9 @@ function ChangeCard({ change, index }) {
         </button>
       </div>
 
-      {/* Expanded detail */}
       {open && (
         <div className="border-t border-gray-100 px-5 pb-5 pt-4 space-y-5 bg-gray-50">
 
-          {/* Why it matters */}
           {change.whyItMatters && (
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-1.5">Why this change matters</p>

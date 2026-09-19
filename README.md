@@ -105,27 +105,28 @@ a cloud vector database.
 
 ## AI Approach
 
-The application uses an **AIService abstraction** with two implementations:
+The application uses an **AIService abstraction** with three implementations:
 
 ### DemoAIService (default — no API key needed)
 - Backed by richly structured JSON data for two fictional employment agreements
-- Deterministic responses with realistic delays
+- Deterministic responses — works instantly, no network calls
 - Fully covers: analysis, clause extraction, obligations, Q&A, comparison, consultation brief
-- All demo data clearly labelled as fictional
 
-### RealAIService (optional — requires `OPENAI_API_KEY`)
-- Uses OpenAI GPT-4o with carefully engineered system prompts
-- Enforces safety guidelines: no legal advice, evidence-grounded answers, clear source citations
-- Same interface as DemoAIService — zero code changes needed
+### GeminiAIService (recommended — requires `GEMINI_API_KEY`)
+- Uses Google Gemini 1.5 Flash (`gemini-1.5-flash`) via `@google/generative-ai`
+- JSON-mode responses with the same safety system prompt as Demo Mode
+- Set `GEMINI_API_KEY` in `server/.env` to activate
 
-The factory (`services/ai/index.js`) automatically selects the correct implementation:
+### RealAIService (legacy — requires `OPENAI_API_KEY`)
+- Uses OpenAI GPT-4o via the `openai` npm package
+- Kept for compatibility — prefer Gemini for new deployments
 
-```js
-if (process.env.OPENAI_API_KEY) {
-  return new RealAIService()   // OpenAI
-} else {
-  return new DemoAIService()   // Demo Mode
-}
+The factory (`services/ai/index.js`) selects automatically:
+
+```
+GEMINI_API_KEY set  →  GeminiAIService
+OPENAI_API_KEY set  →  RealAIService  (legacy)
+neither set         →  DemoAIService  (default)
 ```
 
 ---
