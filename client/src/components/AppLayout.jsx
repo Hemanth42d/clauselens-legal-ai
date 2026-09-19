@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Outlet, NavLink, useNavigate } from 'react-router-dom'
 import {
-  Scale, LayoutDashboard, Upload, GitCompare,
+  LayoutDashboard, Upload, GitCompare,
   LogOut, Menu, X,
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
@@ -100,28 +100,36 @@ export default function AppLayout() {
   }
 
   return (
-    <div className="min-h-screen flex bg-gray-50">
+    /*
+     * The outermost div is h-screen + overflow-hidden so the ENTIRE shell
+     * never scrolls. Only the middle <main> scrolls. Sidebar and chat panel
+     * stay pinned regardless of content length.
+     */
+    <div className="h-screen overflow-hidden flex bg-gray-50" style={{ height: '100dvh' }}>
 
-      {/* Desktop sidebar */}
-      <aside className="hidden lg:flex flex-col flex-shrink-0 sticky top-0 h-screen" aria-label="Sidebar navigation">
+      {/* ── Desktop sidebar — pinned, never scrolls ── */}
+      <aside
+        className="hidden lg:flex flex-col flex-shrink-0 h-full"
+        aria-label="Sidebar navigation"
+      >
         <Sidebar user={user} onLogout={handleLogout} />
       </aside>
 
-      {/* Mobile sidebar drawer */}
+      {/* ── Mobile sidebar drawer ── */}
       {mobileOpen && (
         <div className="lg:hidden fixed inset-0 z-50 flex">
           <div className="absolute inset-0 bg-black/40" onClick={() => setMobileOpen(false)} aria-hidden="true" />
-          <div className="relative z-10">
+          <div className="relative z-10 h-full">
             <Sidebar user={user} onLogout={handleLogout} onClose={() => setMobileOpen(false)} />
           </div>
         </div>
       )}
 
-      {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0">
+      {/* ── Middle column — only this scrolls ── */}
+      <div className="flex-1 flex flex-col min-w-0 h-full">
 
         {/* Mobile top bar */}
-        <header className="lg:hidden sticky top-0 z-40 h-14 bg-white border-b border-gray-200 flex items-center justify-between px-4 flex-shrink-0">
+        <header className="lg:hidden flex-shrink-0 h-14 bg-white border-b border-gray-200 flex items-center justify-between px-4">
           <button
             onClick={() => setMobileOpen(true)}
             className="p-2 rounded-lg hover:bg-gray-100 text-gray-600"
@@ -141,7 +149,8 @@ export default function AppLayout() {
           </div>
         </header>
 
-        <main className="flex-1 overflow-auto">
+        {/* Scrollable page content */}
+        <main className="flex-1 overflow-y-auto">
           <Outlet />
         </main>
       </div>

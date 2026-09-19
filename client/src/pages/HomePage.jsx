@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import {
   Search, GitCompare, CheckSquare, Clock,
   BookOpen, Shield, ArrowRight, FileText,
-  Star, Zap, Lock,
+  Star, Zap, Lock, ChevronRight,
 } from 'lucide-react'
 
 /* ── How-it-works steps ─────────────────────────────────────────────────── */
@@ -93,8 +93,8 @@ export default function HomePage() {
         <div className="absolute -bottom-20 -right-20 w-80 h-80 rounded-full bg-green-200/40 blur-3xl pointer-events-none" aria-hidden="true" />
         <div className="absolute top-1/4 right-1/3 w-64 h-64 rounded-full bg-yellow-200/30 blur-3xl pointer-events-none" aria-hidden="true" />
 
-        <div className="relative max-w-6xl mx-auto px-6 py-20 w-full">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-20 w-full">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
             {/* Left copy */}
             <div>
@@ -111,7 +111,7 @@ export default function HomePage() {
 
               <h1
                 id="hero-heading"
-                className="text-5xl lg:text-6xl font-semibold text-gray-900 leading-tight tracking-tight mb-6 animate-fade-up delay-100"
+                className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-gray-900 leading-tight tracking-tight mb-6 animate-fade-up delay-100"
               >
                 Understand<br />
                 the <span className="text-blue-500">fine print.</span><br />
@@ -167,8 +167,8 @@ export default function HomePage() {
 
       {/* ── Stats strip ───────────────────────────────────────────────────── */}
       <div className="border-t border-b border-gray-200">
-        <div className="max-w-6xl mx-auto px-6 py-8">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 text-center">
             {[
               { value: '10+',   label: 'Clause categories',    color: 'text-blue-500'   },
               { value: '100%',  label: 'Source-backed answers', color: 'text-green-600'  },
@@ -185,11 +185,11 @@ export default function HomePage() {
       </div>
 
       {/* ── Capabilities — rich alternating + grid ────────────────────────── */}
-      <section className="py-24 overflow-hidden" aria-labelledby="features-heading">
+      <section className="py-16 sm:py-24 overflow-hidden" aria-labelledby="features-heading">
 
-        {/* Header on a colored band */}
-        <div className="bg-gray-50 border-y border-gray-200 py-14 mb-20">
-          <div className="max-w-6xl mx-auto px-6 text-center">
+        {/* Header band */}
+        <div className="bg-gray-50 border-y border-gray-200 py-10 sm:py-14 mb-12 sm:mb-20">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
             <div className="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-1.5 shadow-sm mb-5">
               <span className="flex gap-0.5">
                 <span className="w-2 h-2 rounded-full bg-blue-500" />
@@ -209,7 +209,7 @@ export default function HomePage() {
         </div>
 
         {/* ── Top 3 — alternating showcase rows ── */}
-        <div className="max-w-6xl mx-auto px-6 space-y-16 mb-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 space-y-12 sm:space-y-16 mb-12 sm:mb-20">
           {[
             {
               Icon: Search,      iconBg: 'bg-blue-500',   tag: 'Analysis',
@@ -318,7 +318,7 @@ export default function HomePage() {
         </div>
 
         {/* ── Bottom 3 — compact grid ── */}
-        <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="grid sm:grid-cols-3 gap-6">
             {[
               {
@@ -361,7 +361,7 @@ export default function HomePage() {
 
       {/* ── How it works — dark background for contrast ───────────────────── */}
       <div className="bg-gray-900">
-        <section className="max-w-6xl mx-auto px-6 py-20" aria-labelledby="how-heading">
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20" aria-labelledby="how-heading">
           <div className="text-center mb-14">
             <span className="inline-block bg-white/10 text-white text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full border border-white/20 mb-4">
               How it works
@@ -410,7 +410,7 @@ export default function HomePage() {
       </div>
 
       {/* ── Trust pillars ─────────────────────────────────────────────────── */}
-      <section className="max-w-6xl mx-auto px-6 py-20" aria-labelledby="trust-heading">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20" aria-labelledby="trust-heading">
         <div className="text-center mb-14">
           <h2 id="trust-heading" className="text-3xl font-semibold text-gray-900 mb-3">
             Built with safety and clarity in mind
@@ -447,7 +447,7 @@ export default function HomePage() {
 
       {/* ── Final CTA ─────────────────────────────────────────────────────── */}
       <div style={{ background: 'linear-gradient(135deg, #1A73E8 0%, #0D47A1 100%)' }}>
-        <section className="max-w-6xl mx-auto px-6 py-20 text-center" aria-labelledby="cta-heading">
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 py-14 sm:py-20 text-center" aria-labelledby="cta-heading">
           <div className="flex items-center justify-center gap-1.5 mb-6" aria-hidden="true">
             <span className="w-3 h-3 rounded-full bg-white/70" />
             <span className="w-3 h-3 rounded-full bg-yellow-300" />

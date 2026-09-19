@@ -319,7 +319,7 @@ export default function ComparisonPage() {
 
   return (
     <div className="min-h-full bg-gray-50">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 space-y-7">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-7">
 
         {/* ── Header ── */}
         <div>

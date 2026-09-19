@@ -155,6 +155,12 @@ export default function SignUpPage() {
             Sign in
           </Link>
         </p>
+        <p className="text-center text-xs text-gray-400 mt-2">
+          Just exploring?{' '}
+          <Link to="/signin" className="text-blue-400 hover:text-blue-500 font-medium">
+            Use the demo account on the Sign In page
+          </Link>
+        </p>
       </div>
     </div>
   )

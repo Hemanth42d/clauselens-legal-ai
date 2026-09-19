@@ -106,18 +106,30 @@ export default function SignInPage() {
             </button>
           </form>
 
-          {/* Demo hint */}
-          <div className="border-t border-gray-100 pt-4 text-center">
-            <p className="text-xs text-gray-500">
-              Try the demo account:{' '}
+          {/* Demo hint — prominent card */}
+          <div className="border-t border-gray-100 pt-4">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <p className="text-xs font-semibold text-blue-700 uppercase tracking-wide mb-2">
+                🚀 Try the demo account
+              </p>
+              <div className="space-y-1 mb-3">
+                <div className="flex items-center justify-between bg-white border border-blue-100 rounded px-3 py-1.5">
+                  <span className="text-xs text-gray-500 font-medium">Email</span>
+                  <span className="text-xs font-mono font-semibold text-gray-800">demo@clauselens.app</span>
+                </div>
+                <div className="flex items-center justify-between bg-white border border-blue-100 rounded px-3 py-1.5">
+                  <span className="text-xs text-gray-500 font-medium">Password</span>
+                  <span className="text-xs font-mono font-semibold text-gray-800">Demo1234!</span>
+                </div>
+              </div>
               <button
                 type="button"
                 onClick={() => { setEmail('demo@clauselens.app'); setPassword('Demo1234!') }}
-                className="text-blue-500 hover:text-blue-600 font-medium underline-offset-2 hover:underline"
+                className="w-full btn-primary btn-sm justify-center"
               >
                 Fill in demo credentials
               </button>
-            </p>
+            </div>
           </div>
         </div>
 

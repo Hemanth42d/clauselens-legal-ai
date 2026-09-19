@@ -412,54 +412,66 @@ export default function AnalysisPage() {
     <div className="flex flex-col bg-white" style={{ height: '100vh' }}>
 
       {/* ── Top bar ──────────────────────────────────────────────────────── */}
-      <header className="flex items-center gap-3 px-4 h-14 border-b border-gray-200 bg-white flex-shrink-0 z-20">
-        {/* Logo + back */}
+      <header className="flex items-center gap-2 px-3 sm:px-4 h-14 border-b border-gray-200 bg-white flex-shrink-0 z-20">
+        {/* Back button */}
         <button
-          onClick={() => navigate('/')}
-          className="flex items-center gap-1.5 flex-shrink-0"
-          aria-label="ClauseLens home"
+          onClick={() => navigate(-1)}
+          className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-colors flex-shrink-0"
+          aria-label="Go back"
         >
-          <div className="w-6 h-6 rounded bg-blue-500 flex items-center justify-center">
-            <Scale className="w-3.5 h-3.5 text-white" aria-hidden="true" />
+          <ChevronLeft className="w-4 h-4" aria-hidden="true" />
+          <span className="hidden sm:inline">Back</span>
+        </button>
+
+        <span className="w-px h-5 bg-gray-200 flex-shrink-0" aria-hidden="true" />
+
+        {/* Logo */}
+        <button
+          onClick={() => navigate('/dashboard')}
+          className="flex items-center gap-1.5 flex-shrink-0"
+          aria-label="Go to dashboard"
+        >
+          <div className="w-5 h-5 rounded bg-blue-500 flex items-center justify-center">
+            <Scale className="w-3 h-3 text-white" aria-hidden="true" />
           </div>
           <span className="font-semibold text-gray-900 text-sm hidden sm:inline">ClauseLens</span>
         </button>
 
-        <ChevronRight className="w-3.5 h-3.5 text-gray-300 flex-shrink-0" aria-hidden="true" />
+        <ChevronRight className="w-3.5 h-3.5 text-gray-300 flex-shrink-0 hidden sm:block" aria-hidden="true" />
 
         {/* Document title */}
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-2 flex-wrap">
             <h1 className="text-sm font-semibold text-gray-900 truncate">{document.title}</h1>
             {analysis?.isDemo && (
-              <span className="badge badge-blue text-xs">Sample Document</span>
+              <span className="badge badge-blue text-xs hidden sm:inline-flex">Sample</span>
             )}
             {analysis?.isUploaded && (
-              <span className="badge badge-added text-xs">Uploaded</span>
+              <span className="badge badge-added text-xs hidden sm:inline-flex">Uploaded</span>
             )}
           </div>
           {analysis && (
-            <p className="text-xs text-gray-500 leading-none mt-0.5">
+            <p className="text-xs text-gray-500 leading-none mt-0.5 hidden sm:block">
               {analysis.clauseCount} clauses · {analysis.obligationCount} obligations
               {analysis.attentionCounts?.high > 0 && (
-                <span className="text-red-500"> · {analysis.attentionCounts.high} high attention</span>
+                <span className="text-red-500"> · {analysis.attentionCounts.high} high</span>
               )}
             </p>
           )}
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-2 flex-shrink-0">
-          <Link to="/comparison" className="btn-ghost btn-sm hidden sm:inline-flex">
+        <div className="flex items-center gap-1.5 flex-shrink-0">
+          <Link to="/comparison" className="btn-ghost btn-sm hidden md:inline-flex">
             <GitCompare className="w-3.5 h-3.5" aria-hidden="true" />
-            Compare
+            <span className="hidden lg:inline">Compare</span>
           </Link>
           <button
             onClick={() => setActiveTab('consultation')}
             className="btn-secondary btn-sm"
           >
             <BookOpen className="w-3.5 h-3.5" aria-hidden="true" />
-            <span className="hidden sm:inline">Prepare for Lawyer</span>
+            <span className="hidden sm:inline">Lawyer Prep</span>
           </button>
         </div>
       </header>
@@ -549,16 +561,20 @@ export default function AnalysisPage() {
               role="tab"
               aria-selected={activeTab === id}
               onClick={() => setActiveTab(id)}
-              className={`flex-shrink-0 flex flex-col items-center gap-0.5 px-3 py-2 text-xs font-medium
-                border-t-2 transition-colors
-                ${activeTab === id ? 'text-blue-600 border-blue-500' : 'text-gray-500 border-transparent'}`}
+              className={`flex-shrink-0 flex flex-col items-center gap-0.5 px-3 py-2.5 text-xs font-medium
+                border-t-2 transition-colors min-w-[60px]
+                ${activeTab === id ? 'text-blue-600 border-blue-500 bg-blue-50/50' : 'text-gray-500 border-transparent'}`}
             >
               <Icon className="w-4 h-4" aria-hidden="true" />
-              {label}
+              <span className="truncate text-[10px]">{label.split(' ')[0]}</span>
             </button>
           ))}
         </div>
-        <div className="p-3 max-h-80 overflow-y-auto bg-gray-50">
+        {/* Give mobile analysis panel more height */}
+        <div className="h-[50vh] overflow-y-auto bg-gray-50 p-4">
+          <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3 pb-2 border-b border-gray-100">
+            {TABS.find(t => t.id === activeTab)?.label}
+          </p>
           {tabContent[activeTab] || null}
         </div>
       </div>

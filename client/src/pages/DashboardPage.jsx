@@ -55,10 +55,10 @@ export default function DashboardPage() {
   const firstName = user?.name?.split(' ')[0] || 'there'
 
   return (
-    <div className="flex gap-0 min-h-full">
+    <div className="flex h-full">
 
       {/* ── Main content area ───────────────────────────────────────────── */}
-      <div className="flex-1 min-w-0 px-6 py-8 space-y-7 max-w-3xl">
+      <div className="flex-1 min-w-0 overflow-y-auto px-6 py-8 space-y-7">
 
         {/* Greeting */}
         <div className="flex items-start justify-between gap-4 flex-wrap">
@@ -93,7 +93,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
           {[
             { Icon: FileText,      value: docs.length || '2', label: 'Documents',      iconCls: 'text-blue-500',   bg: 'bg-blue-50'   },
             { Icon: AlertTriangle, value: '5+',               label: 'High attention', iconCls: 'text-red-400',    bg: 'bg-red-50'    },
@@ -197,7 +197,7 @@ export default function DashboardPage() {
       </div>
 
       {/* ── Right: Legal Chat sidebar ───────────────────────────────────── */}
-      <div className="hidden xl:flex flex-shrink-0 w-80 border-l border-gray-200 bg-white sticky top-0 h-screen overflow-hidden flex-col">
+      <div className="hidden xl:flex flex-shrink-0 w-80 border-l border-gray-200 bg-white h-full overflow-hidden flex-col">
         <InlineLegalChat />
       </div>
 
