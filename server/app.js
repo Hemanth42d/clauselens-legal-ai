@@ -1,9 +1,9 @@
 require('dotenv').config();
-const express  = require('express');
-const cors     = require('cors');
-const helmet   = require('helmet');
+const express   = require('express');
+const cors      = require('cors');
+const helmet    = require('helmet');
 const rateLimit = require('express-rate-limit');
-const path     = require('path');
+const path      = require('path');
 
 const authRoutes         = require('./routes/auth');
 const documentRoutes     = require('./routes/documents');
@@ -13,15 +13,11 @@ const comparisonRoutes   = require('./routes/comparison');
 const consultationRoutes = require('./routes/consultation');
 const authenticate       = require('./middleware/auth');
 
-const app = express();
+const app  = express();
+const isProd = process.env.NODE_ENV === 'production';
 
-// ── Security headers ──────────────────────────────────────────────────────────
-app.use(helmet({
-  crossOriginEmbedderPolicy: false,
-  contentSecurityPolicy: false,
-}));
+app.use(helmet({ crossOriginEmbedderPolicy: false, contentSecurityPolicy: false }));
 
-// ── CORS ──────────────────────────────────────────────────────────────────────
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
@@ -29,16 +25,15 @@ const allowedOrigins = [
 ].filter(Boolean);
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
-    callback(new Error('Not allowed by CORS'));
+  origin: (origin, cb) => {
+    if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+    cb(new Error('Not allowed by CORS'));
   },
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token'],
   credentials: true,
 }));
 
-// ── Rate limiting ─────────────────────────────────────────────────────────────
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
@@ -48,7 +43,6 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
-// Tighter limit on auth endpoints to slow brute-force attempts
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 20,
@@ -57,52 +51,34 @@ const authLimiter = rateLimit({
 app.use('/api/auth/login',    authLimiter);
 app.use('/api/auth/register', authLimiter);
 
-// ── Body parsing ──────────────────────────────────────────────────────────────
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// ── Health check (public) ─────────────────────────────────────────────────────
-app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'ok',
-    mode:   process.env.OPENAI_API_KEY ? 'ai' : 'demo',
-    version: '1.0.0',
-    timestamp: new Date().toISOString(),
-  });
+// Public health check — does not expose sensitive config values.
+app.get('/api/health', (_req, res) => {
+  res.json({ status: 'ok', version: '1.0.0', timestamp: new Date().toISOString() });
 });
 
-// ── Auth routes (public) ──────────────────────────────────────────────────────
-app.use('/api/auth', authRoutes);
+app.use('/api/auth',         authRoutes);
+app.use('/api/documents',    authenticate, documentRoutes);
+app.use('/api/analysis',     authenticate, analysisRoutes);
+app.use('/api/qa',           authenticate, qaRoutes);
+app.use('/api/comparison',   authenticate, comparisonRoutes);
+app.use('/api/consultation', authenticate, consultationRoutes);
 
-// ── All other API routes require authentication ───────────────────────────────
-app.use('/api/documents',   authenticate, documentRoutes);
-app.use('/api/analysis',    authenticate, analysisRoutes);
-app.use('/api/qa',          authenticate, qaRoutes);
-app.use('/api/comparison',  authenticate, comparisonRoutes);
-app.use('/api/consultation',authenticate, consultationRoutes);
-
-// ── Serve built client in production ─────────────────────────────────────────
-if (process.env.NODE_ENV === 'production') {
+if (isProd) {
   const clientDist = path.join(__dirname, '..', 'client', 'dist');
   app.use(express.static(clientDist));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(clientDist, 'index.html'));
-  });
+  app.get('*', (_req, res) => res.sendFile(path.join(clientDist, 'index.html')));
 }
 
-// ── 404 handler ───────────────────────────────────────────────────────────────
-app.use((req, res) => {
-  res.status(404).json({ error: 'Route not found' });
-});
+app.use((_req, res) => res.status(404).json({ error: 'Route not found' }));
 
-// ── Global error handler ──────────────────────────────────────────────────────
-app.use((err, req, res, _next) => {
-  console.error('[Error]', err.message);
-  const status = err.status || 500;
-  res.status(status).json({
-    error: process.env.NODE_ENV === 'production'
-      ? 'An unexpected error occurred'
-      : err.message,
+// Global error handler — stack trace only logged in development.
+app.use((err, _req, res, _next) => {
+  if (!isProd) console.error(err.stack);
+  res.status(err.status || 500).json({
+    error: isProd ? 'An unexpected error occurred' : err.message,
   });
 });
 

@@ -208,7 +208,6 @@ describe('API Routes', () => {
     });
   });
 
-  // ── Q&A ───────────────────────────────────────────────────────────────────
   describe('POST /api/qa/ask', () => {
     test('answers question for demo doc', async () => {
       const res = await auth(request(app).post('/api/qa/ask'))
@@ -239,8 +238,7 @@ describe('API Routes', () => {
       expect(res.body.questions.length).toBeGreaterThan(0);
     });
   });
-
-  // ── Comparison ────────────────────────────────────────────────────────────
+ 
   describe('POST /api/comparison/compare', () => {
     test('compares v1 and v2', async () => {
       const res = await auth(request(app).post('/api/comparison/compare'))
@@ -255,7 +253,6 @@ describe('API Routes', () => {
     });
   });
 
-  // ── Consultation ──────────────────────────────────────────────────────────
   describe('POST /api/consultation/brief', () => {
     test('generates brief', async () => {
       const res = await auth(request(app).post('/api/consultation/brief'))
@@ -272,7 +269,6 @@ describe('API Routes', () => {
     });
   });
 
-  // ── 404 ───────────────────────────────────────────────────────────────────
   describe('404 handler', () => {
     test('returns 404 for unknown route', async () => {
       const res = await request(app).get('/api/nonexistent-route');

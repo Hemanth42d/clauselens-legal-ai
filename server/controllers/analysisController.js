@@ -1,17 +1,13 @@
-const { getAIService } = require('../services/ai');
-const DocumentStore = require('../services/document/DocumentStore');
+const { getAIService }  = require('../services/ai');
+const DocumentStore     = require('../services/document/DocumentStore');
 
 /**
- * Helper: resolve a documentId to a document object.
- * Checks the AI service first (demo), then falls back to DocumentStore (uploads).
+ * Resolves a documentId to a full document object.
+ * Checks the AI service store first (demo docs), then the shared DocumentStore (uploads).
  */
 function resolveDocument(service, documentId) {
   if (typeof service.getDocument === 'function') {
-    try {
-      return service.getDocument(documentId);
-    } catch (e) {
-      // Not in demo store — try DocumentStore (uploaded docs)
-    }
+    try { return service.getDocument(documentId); } catch { /* fall through */ }
   }
   const doc = DocumentStore.get(documentId);
   if (!doc) {
@@ -28,12 +24,9 @@ exports.analyzeDocument = async (req, res, next) => {
     if (!documentId) return res.status(400).json({ error: 'documentId is required' });
 
     const service = getAIService();
-    const doc = resolveDocument(service, documentId);
-    const result = await service.analyzeDocument(doc);
-    res.json(result);
-  } catch (err) {
-    next(err);
-  }
+    const doc     = resolveDocument(service, documentId);
+    res.json(await service.analyzeDocument(doc));
+  } catch (err) { next(err); }
 };
 
 exports.extractClauses = async (req, res, next) => {
@@ -42,12 +35,9 @@ exports.extractClauses = async (req, res, next) => {
     if (!documentId) return res.status(400).json({ error: 'documentId is required' });
 
     const service = getAIService();
-    const doc = resolveDocument(service, documentId);
-    const result = await service.extractClauses(doc);
-    res.json(result);
-  } catch (err) {
-    next(err);
-  }
+    const doc     = resolveDocument(service, documentId);
+    res.json(await service.extractClauses(doc));
+  } catch (err) { next(err); }
 };
 
 exports.extractObligations = async (req, res, next) => {
@@ -56,12 +46,9 @@ exports.extractObligations = async (req, res, next) => {
     if (!documentId) return res.status(400).json({ error: 'documentId is required' });
 
     const service = getAIService();
-    const doc = resolveDocument(service, documentId);
-    const result = await service.extractObligations(doc);
-    res.json(result);
-  } catch (err) {
-    next(err);
-  }
+    const doc     = resolveDocument(service, documentId);
+    res.json(await service.extractObligations(doc));
+  } catch (err) { next(err); }
 };
 
 exports.extractTimeline = async (req, res, next) => {
@@ -70,10 +57,8 @@ exports.extractTimeline = async (req, res, next) => {
     if (!documentId) return res.status(400).json({ error: 'documentId is required' });
 
     const service = getAIService();
-    // extractTimeline accepts a documentId string directly
-    const result = await service.extractTimeline(documentId);
-    res.json(result);
-  } catch (err) {
-    next(err);
-  }
+    // Resolve doc so RealAIService receives the full object, not just an ID string.
+    const doc     = resolveDocument(service, documentId);
+    res.json(await service.extractTimeline(doc.documentId));
+  } catch (err) { next(err); }
 };
