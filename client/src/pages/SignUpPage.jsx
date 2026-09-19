@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Scale, Eye, EyeOff, AlertCircle, Loader2, CheckCircle2 } from 'lucide-react'
+import { Scale, Eye, EyeOff, AlertCircle, Loader2, CheckCircle2, ArrowRight } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 
 function PasswordStrength({ password }) {
   const checks = [
     { label: 'At least 8 characters', ok: password.length >= 8 },
-    { label: 'Contains a number',     ok: /\d/.test(password) },
+    { label: 'Contains a number',     ok: /\d/.test(password)  },
     { label: 'Contains a letter',     ok: /[a-zA-Z]/.test(password) },
   ]
   if (!password) return null
@@ -37,7 +37,6 @@ export default function SignUpPage() {
     e.preventDefault()
     if (!name.trim() || !email.trim() || !password) return
     if (password.length < 8) { setError('Password must be at least 8 characters.'); return }
-
     setError(''); setLoading(true)
     try {
       await register(name.trim(), email.trim(), password)
@@ -51,11 +50,11 @@ export default function SignUpPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-sm">
+      <div className="w-full max-w-2xl">
 
-        {/* Logo */}
+        {/* Logo — centred above the two-column layout */}
         <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 mb-6">
+          <Link to="/" className="inline-flex items-center gap-2 mb-4">
             <div className="w-8 h-8 rounded bg-blue-500 flex items-center justify-center">
               <Scale className="w-5 h-5 text-white" />
             </div>
@@ -65,101 +64,115 @@ export default function SignUpPage() {
           <p className="text-sm text-gray-500 mt-1">Start understanding your documents today.</p>
         </div>
 
-        {/* Card */}
-        <div className="bg-white border border-gray-300 rounded-lg shadow-sm p-8 space-y-5">
+        {/* ── Two-column layout: form | demo card ── */}
+        <div className="grid md:grid-cols-2 gap-5 items-start">
 
-          {error && (
-            <div className="flex items-start gap-2.5 p-3 rounded-lg bg-red-50 border border-red-200 text-sm text-red-700" role="alert">
-              <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-              <p>{error}</p>
-            </div>
-          )}
+          {/* ── Left: sign-up form ── */}
+          <div className="bg-white border border-gray-300 rounded-xl shadow-sm p-6 space-y-5">
 
-          <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-            {/* Name */}
-            <div>
-              <label htmlFor="name" className="label">Full name</label>
-              <input
-                id="name"
-                type="text"
-                autoComplete="name"
-                required
-                value={name}
-                onChange={e => setName(e.target.value)}
-                className="input"
-                placeholder="Alex Morgan"
-              />
-            </div>
-
-            {/* Email */}
-            <div>
-              <label htmlFor="email" className="label">Email</label>
-              <input
-                id="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                className="input"
-                placeholder="you@example.com"
-              />
-            </div>
-
-            {/* Password */}
-            <div>
-              <label htmlFor="password" className="label">Password</label>
-              <div className="relative">
-                <input
-                  id="password"
-                  type={showPwd ? 'text' : 'password'}
-                  autoComplete="new-password"
-                  required
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  className="input pr-10"
-                  placeholder="Min. 8 characters"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPwd(v => !v)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                  aria-label={showPwd ? 'Hide password' : 'Show password'}
-                >
-                  {showPwd ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
+            {error && (
+              <div className="flex items-start gap-2.5 p-3 rounded-lg bg-red-50 border border-red-200 text-sm text-red-700" role="alert">
+                <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                <p>{error}</p>
               </div>
-              <PasswordStrength password={password} />
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+              <div>
+                <label htmlFor="name" className="label">Full name</label>
+                <input id="name" type="text" autoComplete="name" required value={name}
+                  onChange={e => setName(e.target.value)} className="input" placeholder="Alex Morgan" />
+              </div>
+
+              <div>
+                <label htmlFor="email" className="label">Email</label>
+                <input id="email" type="email" autoComplete="email" required value={email}
+                  onChange={e => setEmail(e.target.value)} className="input" placeholder="you@example.com" />
+              </div>
+
+              <div>
+                <label htmlFor="password" className="label">Password</label>
+                <div className="relative">
+                  <input id="password" type={showPwd ? 'text' : 'password'} autoComplete="new-password"
+                    required value={password} onChange={e => setPassword(e.target.value)}
+                    className="input pr-10" placeholder="Min. 8 characters" />
+                  <button type="button" onClick={() => setShowPwd(v => !v)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    aria-label={showPwd ? 'Hide password' : 'Show password'}>
+                    {showPwd ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                </div>
+                <PasswordStrength password={password} />
+              </div>
+
+              <button type="submit"
+                disabled={loading || !name.trim() || !email.trim() || password.length < 8}
+                className="btn-primary w-full py-2.5 mt-2">
+                {loading ? <><Loader2 className="w-4 h-4 animate-spin" /> Creating account…</> : 'Create Account'}
+              </button>
+            </form>
+
+            <p className="text-xs text-gray-400 text-center">
+              By creating an account you agree that ClauseLens provides informational assistance only, not legal advice.
+            </p>
+          </div>
+
+          {/* ── Right: demo credentials card ── */}
+          <div className="space-y-4">
+            {/* Demo account card */}
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-xl">🚀</span>
+                <div>
+                  <p className="text-sm font-bold text-blue-800">Try the demo account</p>
+                  <p className="text-xs text-blue-600 mt-0.5">No sign-up required</p>
+                </div>
+              </div>
+
+              <div className="space-y-2 mb-4">
+                <div className="flex items-center justify-between bg-white border border-blue-100 rounded-lg px-3 py-2">
+                  <span className="text-xs text-gray-500 font-medium">Email</span>
+                  <span className="text-xs font-mono font-bold text-gray-800 select-all">demo@clauselens.app</span>
+                </div>
+                <div className="flex items-center justify-between bg-white border border-blue-100 rounded-lg px-3 py-2">
+                  <span className="text-xs text-gray-500 font-medium">Password</span>
+                  <span className="text-xs font-mono font-bold text-gray-800 select-all">Demo1234!</span>
+                </div>
+              </div>
+
+              <Link to="/signin"
+                className="w-full btn-primary justify-center text-sm py-2">
+                Sign in with demo account
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
 
-            {/* Submit */}
-            <button
-              type="submit"
-              disabled={loading || !name.trim() || !email.trim() || password.length < 8}
-              className="btn-primary w-full py-2.5 mt-2"
-            >
-              {loading ? <><Loader2 className="w-4 h-4 animate-spin" /> Creating account…</> : 'Create Account'}
-            </button>
-          </form>
-
-          <p className="text-xs text-gray-500 text-center pt-1">
-            By creating an account you agree that ClauseLens provides informational
-            assistance only, not legal advice.
-          </p>
+            {/* What you can explore */}
+            <div className="bg-white border border-gray-200 rounded-xl p-5">
+              <p className="text-xs font-semibold text-gray-700 uppercase tracking-wide mb-3">What you can do</p>
+              <ul className="space-y-2">
+                {[
+                  'Upload your own PDFs to analyse',
+                  'Two pre-loaded sample agreements',
+                  'Clause detection & attention areas',
+                  'Document Q&A with source citations',
+                  'Version comparison (v1 vs v2)',
+                  'Lawyer consultation preparation',
+                ].map(item => (
+                  <li key={item} className="flex items-center gap-2 text-xs text-gray-600">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
 
         {/* Sign in link */}
         <p className="text-center text-sm text-gray-600 mt-6">
           Already have an account?{' '}
-          <Link to="/signin" className="text-blue-500 hover:text-blue-600 font-medium">
-            Sign in
-          </Link>
-        </p>
-        <p className="text-center text-xs text-gray-400 mt-2">
-          Just exploring?{' '}
-          <Link to="/signin" className="text-blue-400 hover:text-blue-500 font-medium">
-            Use the demo account on the Sign In page
-          </Link>
+          <Link to="/signin" className="text-blue-500 hover:text-blue-600 font-medium">Sign in</Link>
         </p>
       </div>
     </div>
