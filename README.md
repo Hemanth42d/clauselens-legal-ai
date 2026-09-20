@@ -56,14 +56,16 @@ graph TD
     A[User Browser] -->|React + Vite| B[Client App]
     B -->|REST API| C[Express Server]
     C --> D{AI Service Factory}
-    D -->|No API key| E[DemoAIService]
-    D -->|OPENAI_API_KEY set| F[RealAIService - OpenAI]
-    E --> G[Bundled Demo JSON]
-    F --> H[GPT-4o]
-    C --> I[RetrievalService - keyword RAG]
-    C --> J[DocumentProcessor - pipeline]
-    I --> K[Clause scoring & ranking]
-    J --> L[Text extraction → Section detection → Classification]
+    D -->|Valid GEMINI_API_KEY| E[GeminiAIService]
+    D -->|Valid OPENAI_API_KEY| F[RealAIService - OpenAI]
+    D -->|No valid key| G[DemoAIService]
+    E --> H[Gemini 1.5 Flash]
+    F --> I[GPT-4o]
+    G --> J[Bundled Demo JSON]
+    C --> K[RetrievalService - keyword RAG]
+    C --> L[DocumentProcessor - pipeline]
+    K --> M[Clause scoring & ranking]
+    L --> N[Text extraction - Section detection - Classification]
 ```
 
 ---
@@ -121,13 +123,16 @@ The application uses an **AIService abstraction** with three implementations:
 - Uses OpenAI GPT-4o via the `openai` npm package
 - Kept for compatibility — prefer Gemini for new deployments
 
-The factory (`services/ai/index.js`) selects automatically:
+The factory (`services/ai/index.js`) selects automatically and validates key format:
 
 ```
-GEMINI_API_KEY set  →  GeminiAIService
-OPENAI_API_KEY set  →  RealAIService  (legacy)
-neither set         →  DemoAIService  (default)
+GEMINI_API_KEY set & valid  →  GeminiAIService   (recommended)
+OPENAI_API_KEY set          →  RealAIService     (legacy)
+no valid key / invalid key  →  DemoAIService     (default, fully functional)
 ```
+
+> **Note:** A Gemini API key is considered valid if it starts with `AIza` and is ≥ 39 characters.
+> An invalid key automatically falls back to DemoAIService instead of crashing.
 
 ---
 
@@ -185,7 +190,7 @@ cd server
 npm test
 ```
 
-Expected output: **71 tests passing** across 3 test suites.
+Expected output: **92 tests passing** across 3 test suites.
 
 ---
 

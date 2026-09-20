@@ -12,7 +12,7 @@ const DEMO_FEATURES = [
   { Icon: MessageSquare,label: 'Document Q&A',            desc: 'Ask anything — answers grounded in the document text'             },
   { Icon: GitCompare,  label: 'Version comparison',      desc: 'Diff two PDFs to see every added, removed, and changed clause'    },
   { Icon: BookOpen,    label: 'Lawyer preparation',      desc: 'Generate a consultation brief with targeted questions'            },
-  { Icon: Upload,      label: 'Upload your own PDFs',    desc: 'The demo account supports real document uploads too'              },
+  { Icon: Upload,      label: 'Upload your own PDFs',    desc: 'Analyse real documents — all accounts support PDF and text uploads'      },
 ]
 
 export default function SignInPage() {

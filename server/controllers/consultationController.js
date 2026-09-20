@@ -9,8 +9,8 @@ exports.generateBrief = async (req, res, next) => {
     if (concern !== undefined && typeof concern !== 'string') {
       return res.status(400).json({ error: 'concern must be a string' });
     }
-    if (concern && concern.length > 1000) {
-      return res.status(400).json({ error: 'concern exceeds 1000 characters' });
+    if (concern && concern.length > 500) {
+      return res.status(400).json({ error: 'concern exceeds 500 characters' });
     }
 
     const service = getAIService();
