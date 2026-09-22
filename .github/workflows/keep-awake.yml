@@ -1,0 +1,16 @@
+name: Keep Render Awake
+
+on:
+  schedule:
+    - cron: "*/14 * * * *" 
+  workflow_dispatch: 
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render App
+        run: |
+          # REPLACE the URL below with your actual Render URL once you deploy!
+          curl -s https://REPLACE_ME_WITH_YOUR_APP_NAME.onrender.com/api/health > /dev/null
+          echo "Ping successful!"
