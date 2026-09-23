@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt    = require('jsonwebtoken');
 const { v4: uuidv4 } = require('uuid');
+const User = require('../../models/User');
 
 const JWT_EXPIRES  = '7d';
 const SALT_ROUNDS  = 10;
@@ -16,25 +17,29 @@ function getSecret() {
 }
 
 /**
- * In-memory user store with JWT-based authentication.
- * Suitable for demo/evaluation. Swap _users for a DB in production.
+ * MongoDB-backed user store with JWT-based authentication.
  */
 class AuthService {
   constructor() {
-    // email → { id, name, email, passwordHash, createdAt }
-    this._users = new Map();
     this._seedDemoUser();
   }
 
   async _seedDemoUser() {
-    const hash = await bcrypt.hash('Demo1234!', SALT_ROUNDS);
-    this._users.set('demo@clauselens.app', {
-      id:           'demo-user-1',
-      name:         'Demo User',
-      email:        'demo@clauselens.app',
-      passwordHash: hash,
-      createdAt:    new Date().toISOString(),
-    });
+    try {
+      const existingUser = await User.findOne({ email: 'demo@clauselens.app' });
+      if (!existingUser) {
+        const hash = await bcrypt.hash('Demo1234!', SALT_ROUNDS);
+        await User.create({
+          id:           'demo-user-1',
+          name:         'Demo User',
+          email:        'demo@clauselens.app',
+          passwordHash: hash,
+        });
+        console.log('✅ Demo user seeded');
+      }
+    } catch (err) {
+      console.error('Failed to seed demo user:', err.message);
+    }
   }
 
   async register(name, email, password) {
@@ -49,24 +54,26 @@ class AuthService {
     if (!password || password.length < 8 || password.length > 128) {
       throw Object.assign(new Error('Password must be 8–128 characters.'), { status: 400 });
     }
-    if (this._users.has(normalised)) {
+
+    const existingUser = await User.findOne({ email: normalised });
+    if (existingUser) {
       throw Object.assign(new Error('An account with this email already exists.'), { status: 409 });
     }
 
-    const user = {
-      id:           uuidv4(),
-      name:         name.trim(),
-      email:        normalised,
-      passwordHash: await bcrypt.hash(password, SALT_ROUNDS),
-      createdAt:    new Date().toISOString(),
-    };
-    this._users.set(normalised, user);
+    const passwordHash = await bcrypt.hash(password, SALT_ROUNDS);
+    const user = await User.create({
+      id: uuidv4(),
+      name: name.trim(),
+      email: normalised,
+      passwordHash,
+    });
+
     return { token: this._sign(user), user: this._public(user) };
   }
 
   async login(email, password) {
     const normalised = (email || '').toLowerCase().trim();
-    const user = this._users.get(normalised);
+    const user = await User.findOne({ email: normalised });
 
     // Always run bcrypt to prevent timing-based username enumeration.
     const dummyHash = '$2b$10$invalidhashforcomparison000000000';
@@ -78,10 +85,10 @@ class AuthService {
     return { token: this._sign(user), user: this._public(user) };
   }
 
-  verify(token) {
+  async verify(token) {
     try {
       const payload = jwt.verify(token, getSecret());
-      const user    = Array.from(this._users.values()).find(u => u.id === payload.sub);
+      const user    = await User.findOne({ id: payload.sub });
       if (!user) throw new Error('User not found');
       return this._public(user);
     } catch {

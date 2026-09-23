@@ -5,5 +5,4 @@ server/node_modules
 .env
 .env.*
 *.log
-client/dist
 coverage

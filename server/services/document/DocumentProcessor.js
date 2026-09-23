@@ -51,7 +51,7 @@ class DocumentProcessor {
       if (!text || text.trim().length < 20) {
         throw Object.assign(new Error("We couldn't extract readable text from this document."), { status: 422 });
       }
-      return text;
+      return { text, totalPages: Math.ceil(text.split('\n').length / 45) };
     }
     try {
       const pdfParse = require('pdf-parse');
@@ -59,7 +59,7 @@ class DocumentProcessor {
       if (!data.text || data.text.trim().length < 20) {
         throw Object.assign(new Error("We couldn't extract readable text from this document."), { status: 422 });
       }
-      return data.text;
+      return { text: data.text, totalPages: data.numpages || 1 };
     } catch (err) {
       if (err.status) throw err;
       throw Object.assign(new Error("We couldn't analyze this document. Please try another PDF."), { status: 422 });
@@ -73,9 +73,19 @@ class DocumentProcessor {
     let page       = 1;
     let lineN      = 0;
 
+    // Check if the text contains form-feed characters (PDF page breaks)
+    const hasFormFeeds = text.includes('\f');
+
     for (const line of lines) {
-      if (++lineN % 45 === 0) page++;
-      const trimmed = line.trim();
+      // Track page boundaries: use form-feed chars if present, otherwise estimate
+      if (hasFormFeeds && line.includes('\f')) {
+        page++;
+      } else if (!hasFormFeeds && ++lineN % 45 === 0) {
+        page++;
+      } else {
+        lineN++;
+      }
+      const trimmed = line.replace(/\f/g, '').trim();
       if (!trimmed) continue;
 
       let matched = false;
@@ -89,7 +99,7 @@ class DocumentProcessor {
         }
       }
 
-      if (!matched && current)  current.text += '\n' + line;
+      if (!matched && current)  current.text += '\n' + line.replace(/\f/g, '');
       else if (!matched && !current) current = { id: '0', sectionNumber: '0', title: 'Document Header', page: 1, text: trimmed, category: 'general' };
     }
 
@@ -220,7 +230,7 @@ class DocumentProcessor {
     return timeline.slice(0, 8);
   }
 
-  buildDocumentFromText(text, filename) {
+  buildDocumentFromText(text, filename, totalPages) {
     const sections     = this.detectSections(text).map(s => ({ ...s, category: this.classifySection(s) }));
     const clauses      = this.extractClausesFromText(sections);
     const obligations  = this.extractObligationsFromText(sections);
@@ -230,7 +240,7 @@ class DocumentProcessor {
       title:         (filename || 'Uploaded Document').replace(/\.[^.]+$/, '').replace(/[_-]/g, ' '),
       version:       '1.0',
       disclaimer:    'This document was uploaded by the user. ClauseLens provides informational assistance only — not legal advice.',
-      metadata:      { documentType: 'Uploaded Document', effectiveDate: null, parties: {}, totalPages: Math.ceil(text.split('\n').length / 45), totalSections: sections.length },
+      metadata:      { documentType: 'Uploaded Document', effectiveDate: null, parties: {}, totalPages: totalPages || Math.ceil(text.split('\n').length / 45), totalSections: sections.length },
       summary:       { documentType: 'Uploaded Document', parties: [], keyTopics: [...new Set(sections.map(s => s.category))] },
       sections,
       clauses,
@@ -243,8 +253,8 @@ class DocumentProcessor {
 
   async process(file) {
     this.validateFile(file);
-    const text = await this.extractText(file.buffer, file.isPDF);
-    return this.buildDocumentFromText(text, file.safeName);
+    const result = await this.extractText(file.buffer, file.isPDF);
+    return this.buildDocumentFromText(result.text, file.safeName, result.totalPages);
   }
 }
 

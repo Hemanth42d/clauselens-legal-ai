@@ -1,7 +1,8 @@
-const AIService     = require('./AIService');
+const AIService = require('./AIService');
 const DocumentStore = require('../document/DocumentStore');
-
-const MAX_CONTEXT_CHARS = 80000;
+const prompts = require('../../ai/prompts/legalAnalysisPrompt');
+const validator = require('../../ai/validation/responseValidator');
+const { parseWithRepair } = require('../../ai/validation/jsonRepair');
 
 /**
  * Google Gemini-backed AI service.
@@ -16,64 +17,54 @@ class GeminiAIService extends AIService {
     this.modelName = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
   }
 
-  _systemInstruction() {
-    return [
-      'You are ClauseLens, an AI assistant that helps users understand legal documents.',
-      'RULES:',
-      '1. Only provide information found in the document. Never invent clauses.',
-      '2. Never give legal advice or claim a clause is enforceable/illegal.',
-      '3. Always cite source sections when making a factual claim.',
-      '4. Use language like: "The document states...", "The wording appears to..."',
-      '5. If information is absent: "I couldn\'t find this in the provided document."',
-      '6. For legal strategy questions respond: "I can help you understand relevant provisions, but cannot advise on legal action."',
-      '7. ALWAYS return valid JSON matching the schema in each prompt. No markdown fences, pure JSON only.',
-    ].join('\n');
-  }
+  async _chat(messages, temperature = 0.2) {
+    let retries = 3;
+    let delay = 1000;
+    while (retries >= 0) {
+      try {
+        const model = this.genAI.getGenerativeModel({
+          model: this.modelName,
+          systemInstruction: prompts.SYSTEM_PROMPT,
+          generationConfig: { responseMimeType: 'application/json', temperature },
+        });
 
-  async _chat(prompt) {
-    try {
-      const model    = this.genAI.getGenerativeModel({
-        model: this.modelName,
-        systemInstruction: this._systemInstruction(),
-        generationConfig: { responseMimeType: 'application/json', temperature: 0.2 },
-      });
-      const result   = await model.generateContent(prompt);
-      const text     = result.response.text();
-      return JSON.parse(text);
-    } catch (err) {
-      throw Object.assign(new Error(err.message || 'AI service unavailable'), { status: 502 });
+        const promptString = messages.map(m => m.content).join('\n\n');
+        
+        const result = await model.generateContent(promptString);
+        return result.response.text();
+      } catch (err) {
+        if (retries === 0) {
+          throw Object.assign(new Error(err.message || 'AI service unavailable'), { status: 502 });
+        }
+        if (err.message && (err.message.includes('overloaded') || err.message.includes('429') || err.message.includes('503'))) {
+          retries--;
+          await new Promise(r => setTimeout(r, delay));
+          delay *= 2; // Exponential backoff
+        } else {
+          // If it's not a rate limit or overloaded error, throw immediately
+          throw Object.assign(new Error(err.message || 'AI service unavailable'), { status: 502 });
+        }
+      }
     }
   }
 
-  _documentContext(document) {
-    const raw = (document.sections || [])
-      .map(s => `[${s.sectionNumber}] ${s.title} (Page ${s.page}):\n${s.text}`)
-      .join('\n\n---\n\n');
-
-    const truncated = raw.length > MAX_CONTEXT_CHARS
-      ? raw.slice(0, MAX_CONTEXT_CHARS) + '\n\n[Document truncated for length]'
-      : raw;
-
-    const p = document.metadata?.parties || {};
-    return [
-      `Document: "${document.title}"`,
-      p.employer ? `Employer: ${p.employer}` : '',
-      p.employee ? `Employee: ${p.employee}` : '',
-      document.metadata?.effectiveDate ? `Effective: ${document.metadata.effectiveDate}` : '',
-      document.metadata?.governingLaw  ? `Governing Law: ${document.metadata.governingLaw}` : '',
-      '', '--- DOCUMENT TEXT ---', truncated,
-    ].filter(Boolean).join('\n');
+  // Helper for JSON repair retries
+  _createRepairFn(messages, temperature) {
+    return async (invalidJsonText) => {
+      const repairMessages = [
+        ...messages,
+        { role: 'assistant', content: invalidJsonText },
+        { role: 'user', content: 'Your previous response was not valid JSON. Please fix any syntax errors, ensure there are no markdown fences or trailing text, and return ONLY a valid JSON object matching the requested schema.' }
+      ];
+      return await this._chat(repairMessages, temperature);
+    };
   }
 
   async analyzeDocument(document) {
-    const result = await this._chat(`Analyze this document and return JSON:
-{
-  "summary": { "documentType": "", "parties": [], "effectiveDate": "", "duration": "", "keyTopics": [] },
-  "attentionAreas": [{ "id": "1", "level": "high|medium|low", "title": "", "summary": "", "sourceSection": "", "sourcePage": 1 }],
-  "clauseCount": 0, "sectionCount": 0, "obligationCount": 0
-}
-
-${this._documentContext(document)}`);
+    const messages = [{ role: 'user', content: prompts.buildAnalysisPrompt(document) }];
+    const rawText = await this._chat(messages);
+    const rawJson = await parseWithRepair(rawText, this._createRepairFn(messages, 0.2));
+    const result = validator.validateAnalysisResponse(rawJson);
 
     return {
       ...result,
@@ -87,126 +78,78 @@ ${this._documentContext(document)}`);
   }
 
   async extractClauses(document) {
-    const result = await this._chat(`Extract all important clauses and return JSON:
-{
-  "clauses": [{
-    "id": "", "sectionId": "", "category": "financial|termination|restrictions|ownership|disputes|time|general",
-    "title": "", "attentionLevel": "high|medium|low", "summary": "", "plainEnglish": "",
-    "whyItMatters": "", "whatToVerify": [], "sourceSection": "", "sourcePage": 1, "originalText": ""
-  }]
-}
+    const messages = [{ role: 'user', content: prompts.buildClausePrompt(document) }];
+    const rawText = await this._chat(messages);
+    const rawJson = await parseWithRepair(rawText, this._createRepairFn(messages, 0.2));
+    const result = validator.validateClauseResponse(rawJson);
 
-${this._documentContext(document)}`);
-
-    const clauses = result.clauses || [];
-    const grouped = clauses.reduce((acc, c) => {
-      (acc[c.category] = acc[c.category] || []).push(c); return acc;
-    }, {});
-
-    return { documentId: document.documentId, clauses, grouped, sections: document.sections, total: clauses.length, mode: 'ai' };
+    return { ...result, documentId: document.documentId, sections: document.sections, mode: 'ai' };
   }
 
   async extractObligations(document) {
-    const result = await this._chat(`Extract all obligations and return JSON:
-{ "obligations": [{ "id": "", "who": "", "action": "", "trigger": "", "deadline": "", "consequence": "", "sourceSection": "", "sourcePage": 1 }] }
+    const messages = [{ role: 'user', content: prompts.buildObligationPrompt(document) }];
+    const rawText = await this._chat(messages);
+    const rawJson = await parseWithRepair(rawText, this._createRepairFn(messages, 0.2));
+    const result = validator.validateObligationResponse(rawJson);
 
-${this._documentContext(document)}`);
-
-    const obligations = result.obligations || [];
-    return {
-      documentId: document.documentId,
-      obligations,
-      total: obligations.length,
-      byParty: {
-        employee: obligations.filter(o => o.who?.toLowerCase().includes('employee')),
-        company:  obligations.filter(o => o.who?.toLowerCase().includes('company')),
-      },
-      mode: 'ai',
-    };
+    return { ...result, documentId: document.documentId, mode: 'ai' };
   }
 
   async answerQuestion(question, document, relevantClauses) {
-    const clauseCtx = relevantClauses.length
-      ? '\n\nRelevant clauses:\n' + relevantClauses.map(c => `[${c.sourceSection}] ${c.title}: ${c.originalText}`).join('\n\n')
-      : '';
+    const messages = [{ role: 'user', content: prompts.buildQAPrompt(question, document, relevantClauses) }];
+    const rawText = await this._chat(messages);
+    const rawJson = await parseWithRepair(rawText, this._createRepairFn(messages, 0.2));
+    const result = validator.validateQAResponse(rawJson, question);
 
-    const result = await this._chat(`Answer this question about the document: "${question}"
-
-Return JSON:
-{ "answer": "", "evidence": "", "sourceSection": "", "sourcePage": null, "confidence": "high|medium|low", "outOfScope": false, "notFound": false }
-${clauseCtx}
-
-${this._documentContext(document)}`);
-
-    return { question, ...result, mode: 'ai' };
+    return { ...result, mode: 'ai' };
   }
 
   async compareDocuments(docA, docB) {
-    const result = await this._chat(`Compare these two documents and return JSON:
-{
-  "summary": "", "overallAssessment": "",
-  "changes": [{
-    "id": "", "clauseTitle": "", "section": "", "category": "",
-    "changeType": "added|modified|removed", "attentionLevel": "high|medium|low",
-    "valueBefore": "", "valueAfter": "",
-    "plainEnglishBefore": "", "plainEnglishAfter": "",
-    "whyItMatters": "", "textBefore": "", "textAfter": ""
-  }],
-  "changeCounts": { "total": 0, "high": 0, "medium": 0, "low": 0, "added": 0, "modified": 0, "removed": 0 }
-}
-
-DOCUMENT A (${docA.title}):
-${this._documentContext(docA)}
-
----
-
-DOCUMENT B (${docB.title}):
-${this._documentContext(docB)}`);
+    const messages = [{ role: 'user', content: prompts.buildComparisonPrompt(docA, docB) }];
+    const rawText = await this._chat(messages, 0.1);
+    const rawJson = await parseWithRepair(rawText, this._createRepairFn(messages, 0.1));
+    const result = validator.validateComparisonResponse(rawJson);
 
     return {
       ...result,
       documentA: docA.documentId, documentB: docB.documentId,
-      documentATitle: docA.title,  documentBTitle: docB.title,
+      documentATitle: docA.title, documentBTitle: docB.title,
       mode: 'ai',
     };
   }
 
   async generateConsultationBrief(document, concern) {
-    const result = await this._chat(`Generate a lawyer consultation brief. User concern: "${concern || 'Understanding key obligations before signing'}"
+    const messages = [{ role: 'user', content: prompts.buildConsultationPrompt(document, concern) }];
+    const rawText = await this._chat(messages);
+    const rawJson = await parseWithRepair(rawText, this._createRepairFn(messages, 0.2));
+    const result = validator.validateConsultationResponse(rawJson);
 
-Return JSON:
-{
-  "concern": "", "relevantClauses": [{ "title": "", "section": "", "attentionLevel": "", "summary": "" }],
-  "questionsForLawyer": [], "documentsToGather": [],
-  "keyDates": [{ "label": "", "date": "", "description": "", "sourceSection": "" }],
-  "disclaimer": "This checklist is intended to help prepare for a professional legal consultation. It is not legal advice."
-}
-
-${this._documentContext(document)}`);
-
-    return { documentId: document.documentId, documentTitle: document.title, ...result, mode: 'ai' };
+    return { ...result, documentId: document.documentId, documentTitle: document.title, mode: 'ai' };
   }
 
   async extractTimeline(documentId) {
-    const doc = DocumentStore.get(documentId);
+    const doc = await DocumentStore.get(documentId);
     if (!doc) throw Object.assign(new Error(`Document not found: ${documentId}`), { status: 404 });
 
-    const result = await this._chat(`Extract a chronological timeline. Return JSON:
-{ "timeline": [{ "id": "", "date": "YYYY-MM-DD or ongoing", "label": "", "description": "", "type": "milestone|obligation|financial|restriction|deadline", "sourceSection": "" }] }
+    const messages = [{ role: 'user', content: prompts.buildTimelinePrompt(doc) }];
+    const rawText = await this._chat(messages);
+    const rawJson = await parseWithRepair(rawText, this._createRepairFn(messages, 0.2));
+    const result = validator.validateTimelineResponse(rawJson);
 
-${this._documentContext(doc)}`);
-
-    return { documentId: doc.documentId, documentTitle: doc.title, timeline: result.timeline || [], total: (result.timeline || []).length, mode: 'ai' };
+    return { ...result, documentId: doc.documentId, documentTitle: doc.title, mode: 'ai' };
   }
 
-  // GeminiAIService also needs listDocuments / getDocument for the document controller
-  listDocuments() { return DocumentStore.list(); }
-  getDocument(id) {
-    const doc = DocumentStore.get(id);
+  // Document Store Integration
+  async listDocuments(userId) { return await DocumentStore.list(userId); }
+  
+  async getDocument(id) {
+    const doc = await DocumentStore.get(id);
     if (!doc) throw Object.assign(new Error(`Document not found: ${id}`), { status: 404 });
     return doc;
   }
-  registerDocument(doc) { return DocumentStore.register(doc, false); }
+  
+  async registerDocument(doc) { return await DocumentStore.register(doc, false); }
+  
   getSuggestedQuestions() {
     return [
       'What is the notice period?', 'What happens if I resign?',

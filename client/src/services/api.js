@@ -4,7 +4,7 @@ const TOKEN_KEY = 'cl_token'
 
 const api = axios.create({
   baseURL: '/api',
-  timeout: 30000,
+  timeout: 90000,   // 90s — AI analysis on large documents can take 40-60s
   headers: { 'Content-Type': 'application/json' },
 })
 

@@ -1,6 +1,22 @@
 const { getAIService } = require('../services/ai');
 const DocumentStore    = require('../services/document/DocumentStore');
 
+async function resolveDocument(service, documentId) {
+  if (typeof service.getDocument === 'function') {
+    try {
+      const doc = await service.getDocument(documentId);
+      if (doc) return doc;
+    } catch { /* fall through */ }
+  }
+  const doc = await DocumentStore.get(documentId);
+  if (!doc) {
+    const err = new Error(`Document not found: ${documentId}`);
+    err.status = 404;
+    throw err;
+  }
+  return doc;
+}
+
 exports.generateBrief = async (req, res, next) => {
   try {
     const { documentId, concern } = req.body;
@@ -13,16 +29,9 @@ exports.generateBrief = async (req, res, next) => {
       return res.status(400).json({ error: 'concern exceeds 500 characters' });
     }
 
-    const service = getAIService();
-    let docExists = false;
-    try {
-      if (typeof service.getDocument === 'function') { service.getDocument(documentId); docExists = true; }
-    } catch { docExists = DocumentStore.has(documentId); }
+    const service = await getAIService();
+    const doc = await resolveDocument(service, documentId);
 
-    if (!docExists) {
-      return res.status(404).json({ error: 'Document not found. Please re-upload your document.' });
-    }
-
-    res.json(await service.generateConsultationBrief(documentId, concern?.trim() || null));
+    res.json(await service.generateConsultationBrief(doc, concern?.trim() || null));
   } catch (err) { next(err); }
 };

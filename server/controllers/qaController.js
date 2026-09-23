@@ -16,26 +16,26 @@ exports.askQuestion = async (req, res, next) => {
       return res.status(400).json({ error: 'documentId is required' });
     }
 
-    const service = getAIService();
+    const service = await getAIService();
 
-    // Resolve document for clause retrieval (RAG context).
+    // Resolve document for clause retrieval (RAG context) — must await DB call.
     let doc = null;
     try {
-      if (typeof service.getDocument === 'function') doc = service.getDocument(documentId);
-    } catch { doc = DocumentStore.get(documentId); }
+      if (typeof service.getDocument === 'function') doc = await service.getDocument(documentId);
+    } catch { doc = await DocumentStore.get(documentId); }
 
     if (!doc) {
       return res.status(404).json({ error: 'Document not found. Please re-upload your document.' });
     }
 
     const relevantClauses = retrieval.retrieve(question, doc.clauses || [], 5);
-    res.json(await service.answerQuestion(question.trim(), documentId, relevantClauses));
+    res.json(await service.answerQuestion(question.trim(), doc, relevantClauses));
   } catch (err) { next(err); }
 };
 
 exports.getSuggestedQuestions = async (req, res, next) => {
   try {
-    const service   = getAIService();
+    const service   = await getAIService();
     const questions = typeof service.getSuggestedQuestions === 'function'
       ? service.getSuggestedQuestions()
       : [];

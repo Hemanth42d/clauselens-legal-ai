@@ -1,6 +1,22 @@
 const { getAIService } = require('../services/ai');
 const DocumentStore    = require('../services/document/DocumentStore');
 
+async function resolveDocument(service, documentId) {
+  if (typeof service.getDocument === 'function') {
+    try {
+      const doc = await service.getDocument(documentId);
+      if (doc) return doc;
+    } catch { /* fall through */ }
+  }
+  const doc = await DocumentStore.get(documentId);
+  if (!doc) {
+    const err = new Error(`Document not found: ${documentId}`);
+    err.status = 404;
+    throw err;
+  }
+  return doc;
+}
+
 exports.compareDocuments = async (req, res, next) => {
   try {
     const { documentAId, documentBId } = req.body;
@@ -12,16 +28,12 @@ exports.compareDocuments = async (req, res, next) => {
       return res.status(400).json({ error: 'Cannot compare a document with itself' });
     }
 
-    const service  = getAIService();
-    const exists   = (id) => {
-      try { if (typeof service.getDocument === 'function') { service.getDocument(id); return true; } }
-      catch { return DocumentStore.has(id); }
-      return DocumentStore.has(id);
-    };
+    const service = await getAIService();
+    const [docA, docB] = await Promise.all([
+      resolveDocument(service, documentAId),
+      resolveDocument(service, documentBId),
+    ]);
 
-    if (!exists(documentAId)) return res.status(404).json({ error: `Document not found: ${documentAId}` });
-    if (!exists(documentBId)) return res.status(404).json({ error: `Document not found: ${documentBId}` });
-
-    res.json(await service.compareDocuments(documentAId, documentBId));
+    res.json(await service.compareDocuments(docA, docB));
   } catch (err) { next(err); }
 };

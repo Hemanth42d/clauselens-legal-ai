@@ -18,19 +18,27 @@ export function useAnalysis(documentId) {
     setLoading(true)
     setError(null)
     try {
-      const [docData, analysisData, clauseData, obligationData, timelineData] =
-        await Promise.all([
-          getDocument(documentId),
-          analyzeDocument(documentId),
-          extractClauses(documentId),
-          extractObligations(documentId),
-          extractTimeline(documentId),
-        ])
+      // Fetch the document metadata first, then fire AI requests sequentially
+      // to avoid simultaneously hammering the AI API and triggering rate limits.
+      const docData = await getDocument(documentId)
       setDocument(docData.document)
+
+      // Small stagger between each AI request to avoid overload
+      const analysisData = await analyzeDocument(documentId)
       setAnalysis(analysisData)
+
+      await new Promise(r => setTimeout(r, 300))
+      const clauseData = await extractClauses(documentId)
       setClauses(clauseData)
+
+      await new Promise(r => setTimeout(r, 300))
+      const obligationData = await extractObligations(documentId)
       setObligations(obligationData)
+
+      await new Promise(r => setTimeout(r, 300))
+      const timelineData = await extractTimeline(documentId)
       setTimeline(timelineData)
+
     } catch (err) {
       setError(err.message)
     } finally {

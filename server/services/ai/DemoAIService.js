@@ -22,17 +22,24 @@ const DEMO_IDS = new Set(['employment-v1', 'employment-v2']);
 class DemoAIService extends AIService {
   constructor() {
     super();
-    // Only register demo docs if not already seeded by the factory
-    if (!DocumentStore.has('employment-v1')) {
-      DocumentStore.register({ ...demoV1, isDemo: true }, true);
-    }
-    if (!DocumentStore.has('employment-v2')) {
-      DocumentStore.register({ ...demoV2, isDemo: true }, true);
+    this._seedDemoDocs();
+  }
+
+  async _seedDemoDocs() {
+    try {
+      const hasV1 = await DocumentStore.has('employment-v1');
+      if (!hasV1) await DocumentStore.register({ ...demoV1, isDemo: true }, true);
+
+      const hasV2 = await DocumentStore.has('employment-v2');
+      if (!hasV2) await DocumentStore.register({ ...demoV2, isDemo: true }, true);
+      console.log('✅ Demo documents seeded');
+    } catch (err) {
+      console.error('Failed to seed demo docs:', err);
     }
   }
 
-  _getDocument(documentId) {
-    const doc = DocumentStore.get(documentId);
+  async _getDocument(documentId) {
+    const doc = await DocumentStore.get(documentId);
     if (!doc) throw Object.assign(new Error(`Document not found: ${documentId}`), { status: 404 });
     return doc;
   }
@@ -41,13 +48,13 @@ class DemoAIService extends AIService {
     return new Promise(r => setTimeout(r, Math.floor(Math.random() * (max - min + 1)) + min));
   }
 
-  registerDocument(doc) {
-    return DocumentStore.register(doc, false);
+  async registerDocument(doc) {
+    return await DocumentStore.register(doc, false);
   }
 
   async analyzeDocument(document) {
     await this._delay(400, 800);
-    const doc            = typeof document === 'string' ? this._getDocument(document) : document;
+    const doc            = typeof document === 'string' ? await this._getDocument(document) : document;
     const attentionAreas = doc.attentionAreas || [];
     return {
       documentId:   doc.documentId,
@@ -73,7 +80,7 @@ class DemoAIService extends AIService {
 
   async extractClauses(document) {
     await this._delay(300, 600);
-    const doc     = typeof document === 'string' ? this._getDocument(document) : document;
+    const doc     = typeof document === 'string' ? await this._getDocument(document) : document;
     const clauses = doc.clauses || [];
     const grouped = clauses.reduce((acc, c) => {
       (acc[c.category || 'general'] = acc[c.category || 'general'] || []).push(c);
@@ -84,7 +91,7 @@ class DemoAIService extends AIService {
 
   async extractObligations(document) {
     await this._delay(200, 500);
-    const doc         = typeof document === 'string' ? this._getDocument(document) : document;
+    const doc         = typeof document === 'string' ? await this._getDocument(document) : document;
     const obligations = doc.obligations || [];
     return {
       documentId: doc.documentId,
@@ -143,8 +150,8 @@ class DemoAIService extends AIService {
 
     if ((docAId === 'employment-v1' && docBId === 'employment-v2') ||
         (docAId === 'employment-v2' && docBId === 'employment-v1')) {
-      const a = this._getDocument('employment-v1');
-      const b = this._getDocument('employment-v2');
+      const a = await this._getDocument('employment-v1');
+      const b = await this._getDocument('employment-v2');
       return {
         ...demoComparison,
         documentATitle: a.title, documentBTitle: b.title,
@@ -162,8 +169,8 @@ class DemoAIService extends AIService {
       };
     }
 
-    const docA = DocumentStore.get(docAId);
-    const docB = DocumentStore.get(docBId);
+    const docA = await DocumentStore.get(docAId);
+    const docB = await DocumentStore.get(docBId);
     if (!docA || !docB) throw Object.assign(new Error('One or both documents not found. Please re-upload them.'), { status: 404 });
     return this._compareGeneric(docA, docB);
   }
@@ -206,7 +213,7 @@ class DemoAIService extends AIService {
 
   async generateConsultationBrief(documentId, concern) {
     await this._delay(500, 900);
-    const doc     = this._getDocument(documentId || 'employment-v2');
+    const doc     = await this._getDocument(documentId || 'employment-v2');
     const high    = (doc.attentionAreas || []).filter(a => a.level === 'high');
     const medium  = (doc.attentionAreas || []).filter(a => a.level === 'medium');
     const isDemoDoc = doc.isDemo;
@@ -259,12 +266,12 @@ class DemoAIService extends AIService {
 
   async extractTimeline(documentId) {
     await this._delay(150, 400);
-    const doc = this._getDocument(documentId || 'employment-v2');
+    const doc = await this._getDocument(documentId || 'employment-v2');
     return { documentId: doc.documentId, documentTitle: doc.title, timeline: doc.timeline || [], total: (doc.timeline || []).length, mode: 'demo' };
   }
 
-  listDocuments()        { return DocumentStore.list(); }
-  getDocument(id)        { return this._getDocument(id); }
+  async listDocuments(userId)        { return await DocumentStore.list(userId); }
+  async getDocument(id)              { return await this._getDocument(id); }
   getSuggestedQuestions() {
     return [
       'What is the notice period?', 'What happens if I resign?',
